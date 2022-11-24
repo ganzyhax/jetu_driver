@@ -1,0 +1,72 @@
+name: jetu.driver
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.5+7
+
+environment:
+  sdk: '>=2.18.4 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_vector_icons: ^1.0.0
+
+  firebase_analytics: ^10.0.5
+  firebase_auth: ^4.1.2
+  firebase_crashlytics: ^3.0.5
+  firebase_core: ^2.2.0
+  firebase_remote_config: ^3.0.5
+  firebase_app_check: ^0.1.1+4
+  firebase_core_platform_interface: 4.5.2
+
+  flutter_bloc: ^8.1.1
+  flutter_svg: ^1.1.6
+  shared_preferences: ^2.0.15
+  image_picker: 0.8.5+3
+  url_launcher: ^6.1.4
+  mask: ^1.0.4
+  fluttertoast: ^8.1.1
+  pinput: ^2.2.16
+  get_it: ^7.2.0
+  mapbox_search: ^3.0.1+2
+  supabase: ^0.3.6
+  loader_overlay: ^2.1.0
+  map_launcher: ^2.2.3
+  lottie: ^2.0.0
+  store_redirect: 2.0.1
+  app_version_update: ^2.0.3
+
+  routing_client_dart: ^0.3.1
+  mapbox_api: ^1.0.0
+  polyline_do: ^0.1.0
+
+  sliding_up_panel: ^2.0.0+1
+  easy_debounce: ^2.0.2+1
+  flutter_screenutil: ^5.6.0
+  modal_bottom_sheet: ^2.1.2
+
+  dio: ^4.0.6
+  graphql: ^5.1.1
+  graphql_flutter: ^5.1.0
+
+  # geo
+  flutter_map: ^0.14.0
+  flutter_map_location_marker: ^3.1.0
+  latlong2: ^0.8.1
+  geolocator: ^8.2.0
+  location: ^4.4.0
+  geocoding: ^2.0.5
+  osm_nominatim: ^2.0.1
+
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/lottie/

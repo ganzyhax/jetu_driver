@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>258860641481-oo9uk3qj35alcrlf082i6j93kjfe36u1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.258860641481-oo9uk3qj35alcrlf082i6j93kjfe36u1</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>258860641481-i6g691o7j8otnotag1ckkdeghlgs6vql.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCg8qaxPcd7NEUKVspyPQBn0njGvCcGT7o</string>
+	<key>GCM_SENDER_ID</key>
+	<string>258860641481</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>kz.jetutaxi.driver</string>
+	<key>PROJECT_ID</key>
+	<string>jetu-taxi</string>
+	<key>STORAGE_BUCKET</key>
+	<string>jetu-taxi.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:258860641481:ios:1311c15a818e9cac587118</string>
+</dict>
+</plist>
