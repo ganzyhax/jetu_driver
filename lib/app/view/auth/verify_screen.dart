@@ -79,13 +79,13 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     focusNode: focusNode,
                     autofocus: true,
                     defaultPinTheme: defaultPinTheme,
-                    onCompleted: (code) => context.read<AuthCubit>()
-                      ..verify(
-                        context: context,
-                        verificationId: widget.verificationId,
-                        code: code,
-                        phone: widget.phone,
-                      ),
+                    // onCompleted: (code) => context.read<AuthCubit>()
+                    //   ..verify(
+                    //     context: context,
+                    //     verificationId: widget.verificationId,
+                    //     code: code,
+                    //     phone: widget.phone,
+                    //   ),
                     focusedPinTheme: defaultPinTheme.copyWith(
                       height: 68.h,
                       width: 64.w,
@@ -100,13 +100,13 @@ class _VerifyScreenState extends State<VerifyScreen> {
                 ),
                 SizedBox(height: 12.h),
                 GestureDetector(
-                  onTap: () => context.read<AuthCubit>()
-                    ..verify(
-                      context: context,
-                      verificationId: widget.verificationId,
-                      code: controller.text,
-                      phone: widget.phone,
-                    ),
+                  // onTap: () => context.read<AuthCubit>()
+                  //   ..verify(
+                  //     context: context,
+                  //     verificationId: widget.verificationId,
+                  //     code: controller.text,
+                  //     phone: widget.phone,
+                  //   ),
                   child: AppButtonV1(
                     isActive: true,
                     isLoading: state.isLoading,

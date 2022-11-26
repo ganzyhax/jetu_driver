@@ -8,6 +8,16 @@ class JetuAuthQuery {
 """);
   }
 
+  static String isPasswordCorrect() {
+    return ("""query check_driver_login(\$phone: String!,\$pass: String!){
+  jetu_drivers (where: {phone: {_like: \$phone},password: {_eq: \$pass}}){
+    id,
+    status
+  }
+}
+""");
+  }
+
   static String checkStatus() {
     return ("""query check_driver_status(\$userId: String!){
   jetu_drivers_by_pk (id: \$userId){

@@ -48,9 +48,9 @@ class HomeScreen extends StatelessWidget {
       },
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, authState) {
-          if (authState.status == 'pending_approval') {
-            AppNavigator.navigateToStatus(context, status: authState.status);
-          }
+          // if (authState.status == 'pending_approval') {
+          //   AppNavigator.navigateToStatus(context, status: authState.status);
+          // }
         },
         builder: (context, authState) {
           return BlocListener<OrderCubit, OrderState>(

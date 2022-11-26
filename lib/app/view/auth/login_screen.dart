@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     GestureDetector(
                       onTap: () {
                         if (!state.isLoading) {
-                          context.read<AuthCubit>().login(
+                          context.read<AuthCubit>().checkPhone(
                                 context: context,
                                 phone: _phoneController.text,
                               );

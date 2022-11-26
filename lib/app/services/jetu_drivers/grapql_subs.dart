@@ -9,4 +9,20 @@ class JetuDriverSubscription {
 }
 """);
   }
+
+  static String getDriverOrderHistory() {
+    return ("""query (\$driverId: String!){
+  jetu_orders(where: {driver_id: {_eq: \$driverId}}){
+    id,
+    point_a_address,
+    point_b_address
+    cost,
+    currency,
+    comment,
+    status,
+    created_at
+  }
+}
+""");
+  }
 }

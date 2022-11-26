@@ -64,7 +64,9 @@ class JetuDriver extends StatelessWidget {
       child: BlocListener<OrderCubit, OrderState>(
           listener: (context, state) {
             if (state.isLoading) {
-              context.loaderOverlay.show(widget: AppOverlayLoader());
+              context.loaderOverlay.show(
+                widget: const AppOverlayLoader(),
+              );
             }
 
             if (!state.isLoading) {

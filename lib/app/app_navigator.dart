@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jetu.driver/app/di/injection.dart';
 import 'package:jetu.driver/app/view/auth/bloc/auth_cubit.dart';
+import 'package:jetu.driver/app/view/auth/forget/forget_password_screen.dart';
 import 'package:jetu.driver/app/view/auth/login_screen.dart';
 import 'package:jetu.driver/app/view/auth/register/full_name_screen.dart';
+import 'package:jetu.driver/app/view/auth/register/write_us_screen.dart';
 import 'package:jetu.driver/app/view/auth/status/status_screen.dart';
 import 'package:jetu.driver/app/view/auth/verify_screen.dart';
 import 'package:jetu.driver/app/view/home/home_screen.dart';
+import 'package:jetu.driver/app/view/order_history/order_history_screen.dart';
 import 'package:jetu.driver/app/widgets/remote_config_screen.dart';
 import 'package:jetu.driver/data/app/app_config.dart';
 
@@ -57,14 +60,37 @@ class AppNavigator {
     );
   }
 
-  static navigateToRegister(
-    BuildContext context, {
+  static navigateToRegister(BuildContext context, {
     required String userId,
     required String phone,
   }) {
     _pushReplacement(
       context,
       FullNameScreen(userId: userId, phone: phone),
+    );
+  }
+
+  static navigateToRegisterToWrite(BuildContext context, {
+    required String title,
+    required String desc,
+  }) {
+    _pushToPage(
+      context,
+      const WriteUsScreen(),
+    );
+  }
+
+  static navigateToForgetPasswordScreen(BuildContext context) {
+    _pushToPage(
+      context,
+      const ForgetPasswordScreen(),
+    );
+  }
+
+  static navigateToOrderHistory(BuildContext context) {
+    _pushToPage(
+      context,
+      const OrderHistoryScreen(),
     );
   }
 

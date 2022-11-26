@@ -10,9 +10,11 @@ import 'package:jetu.driver/app/view/auth/login_screen.dart';
 import 'package:jetu.driver/app/view/home/home_screen.dart';
 import 'package:jetu.driver/gateway/graphql_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('ru');
   await Firebase.initializeApp();
   await FirebaseAppCheck.instance.activate();
 

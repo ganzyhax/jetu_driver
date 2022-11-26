@@ -9,7 +9,7 @@ packages:
     source: hosted
     version: "1.0.8"
   app_version_update:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: app_version_update
       url: "https://pub.dartlang.org"
@@ -163,14 +163,21 @@ packages:
     source: hosted
     version: "0.7.8"
   dio:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: dio
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.6"
+  dotted_line:
+    dependency: "direct main"
+    description:
+      name: dotted_line
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0"
   easy_debounce:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: easy_debounce
       url: "https://pub.dartlang.org"
@@ -198,7 +205,7 @@ packages:
     source: hosted
     version: "6.1.4"
   firebase_analytics:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: firebase_analytics
       url: "https://pub.dartlang.org"
@@ -219,7 +226,7 @@ packages:
     source: hosted
     version: "0.5.1+4"
   firebase_app_check:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: firebase_app_check
       url: "https://pub.dartlang.org"
@@ -240,7 +247,7 @@ packages:
     source: hosted
     version: "0.0.7+7"
   firebase_auth:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: firebase_auth
       url: "https://pub.dartlang.org"
@@ -261,14 +268,14 @@ packages:
     source: hosted
     version: "5.1.2"
   firebase_core:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
   firebase_core_platform_interface:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: firebase_core_platform_interface
       url: "https://pub.dartlang.org"
@@ -282,7 +289,7 @@ packages:
     source: hosted
     version: "2.0.1"
   firebase_crashlytics:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: firebase_crashlytics
       url: "https://pub.dartlang.org"
@@ -296,7 +303,7 @@ packages:
     source: hosted
     version: "3.3.6"
   firebase_remote_config:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: firebase_remote_config
       url: "https://pub.dartlang.org"
@@ -322,7 +329,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_bloc:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
@@ -342,15 +349,22 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.18.5+1"
-  flutter_map:
+  flutter_lints:
     dependency: "direct dev"
+    description:
+      name: flutter_lints
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
+  flutter_map:
+    dependency: "direct main"
     description:
       name: flutter_map
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.14.0"
   flutter_map_location_marker:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_map_location_marker
       url: "https://pub.dartlang.org"
@@ -364,14 +378,14 @@ packages:
     source: hosted
     version: "2.0.7"
   flutter_screenutil:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_screenutil
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.6.0"
   flutter_svg:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_svg
       url: "https://pub.dartlang.org"
@@ -383,7 +397,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_vector_icons:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_vector_icons
       url: "https://pub.dartlang.org"
@@ -395,7 +409,7 @@ packages:
     source: sdk
     version: "0.0.0"
   fluttertoast:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: fluttertoast
       url: "https://pub.dartlang.org"
@@ -409,7 +423,7 @@ packages:
     source: hosted
     version: "0.0.1-dev.5"
   geocoding:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: geocoding
       url: "https://pub.dartlang.org"
@@ -423,7 +437,7 @@ packages:
     source: hosted
     version: "2.0.1"
   geolocator:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: geolocator
       url: "https://pub.dartlang.org"
@@ -465,7 +479,7 @@ packages:
     source: hosted
     version: "0.1.1"
   get_it:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: get_it
       url: "https://pub.dartlang.org"
@@ -528,14 +542,14 @@ packages:
     source: hosted
     version: "0.2.2"
   graphql:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: graphql
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.1.1"
   graphql_flutter:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: graphql_flutter
       url: "https://pub.dartlang.org"
@@ -563,7 +577,7 @@ packages:
     source: hosted
     version: "4.0.2"
   image_picker:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: image_picker
       url: "https://pub.dartlang.org"
@@ -619,12 +633,19 @@ packages:
     source: hosted
     version: "0.3.1"
   latlong2:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: latlong2
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.1"
+  lints:
+    dependency: transitive
+    description:
+      name: lints
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   lists:
     dependency: transitive
     description:
@@ -633,14 +654,14 @@ packages:
     source: hosted
     version: "1.0.1"
   loader_overlay:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: loader_overlay
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
   location:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: location
       url: "https://pub.dartlang.org"
@@ -661,35 +682,35 @@ packages:
     source: hosted
     version: "3.1.1"
   lottie:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: lottie
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
   map_launcher:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: map_launcher
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0"
   mapbox_api:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: mapbox_api
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
   mapbox_search:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: mapbox_search
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1+2"
   mask:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: mask
       url: "https://pub.dartlang.org"
@@ -731,7 +752,7 @@ packages:
     source: hosted
     version: "1.0.2"
   modal_bottom_sheet:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: modal_bottom_sheet
       url: "https://pub.dartlang.org"
@@ -759,7 +780,7 @@ packages:
     source: hosted
     version: "0.6.0+1"
   osm_nominatim:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: osm_nominatim
       url: "https://pub.dartlang.org"
@@ -857,7 +878,7 @@ packages:
     source: hosted
     version: "5.1.0"
   pinput:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: pinput
       url: "https://pub.dartlang.org"
@@ -885,7 +906,7 @@ packages:
     source: hosted
     version: "3.6.2"
   polyline_do:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: polyline_do
       url: "https://pub.dartlang.org"
@@ -934,7 +955,7 @@ packages:
     source: hosted
     version: "0.1.15+1"
   routing_client_dart:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: routing_client_dart
       url: "https://pub.dartlang.org"
@@ -948,7 +969,7 @@ packages:
     source: hosted
     version: "0.27.6"
   shared_preferences:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"
@@ -1009,7 +1030,7 @@ packages:
     source: sdk
     version: "0.0.99"
   sliding_up_panel:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: sliding_up_panel
       url: "https://pub.dartlang.org"
@@ -1044,7 +1065,7 @@ packages:
     source: hosted
     version: "0.0.6+2"
   store_redirect:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: store_redirect
       url: "https://pub.dartlang.org"
@@ -1065,7 +1086,7 @@ packages:
     source: hosted
     version: "1.1.1"
   supabase:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: supabase
       url: "https://pub.dartlang.org"
@@ -1121,7 +1142,7 @@ packages:
     source: hosted
     version: "2.0.4"
   url_launcher:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: url_launcher
       url: "https://pub.dartlang.org"

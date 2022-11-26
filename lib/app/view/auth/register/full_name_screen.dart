@@ -174,16 +174,6 @@ class _FullNameScreenState extends State<FullNameScreen> {
                 ),
                 SizedBox(height: 36.h),
                 GestureDetector(
-                  onTap: () => context.read<AuthCubit>().updateUserData(
-                        context,
-                        userId: widget.userId ?? '',
-                        name: _nameController.text,
-                        surname: _surnameController.text,
-                        phone: widget.phone ?? '',
-                        carModel: _carController.text,
-                        carColor: _carColorController.text,
-                        carNumber: _carNumberController.text,
-                      ),
                   child: AppButtonV1(
                     isActive: _carController.text.isNotEmpty &&
                         _surnameController.text.isNotEmpty &&

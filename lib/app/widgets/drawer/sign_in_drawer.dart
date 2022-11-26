@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:jetu.driver/app/app_navigator.dart';
 import 'package:jetu.driver/app/const/app_const.dart';
 import 'package:jetu.driver/app/resourses/app_colors.dart';
 import 'package:jetu.driver/app/services/jetu_auth/grapql_query.dart';
@@ -114,6 +115,12 @@ class SignInDrawer extends StatelessWidget {
                 },
               );
             },
+          ),
+          SizedBox(height: 24.h),
+          AppSettingTileItem(
+            onTap: () => AppNavigator.navigateToOrderHistory(context),
+            icon: Ionicons.car_outline,
+            title: 'История заказов',
           ),
           const Spacer(),
           AppSettingTileItem(
