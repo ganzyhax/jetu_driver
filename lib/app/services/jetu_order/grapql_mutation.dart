@@ -22,4 +22,16 @@ class JetuOrderMutation {
 }
 """);
   }
+
+  static String updateStatusIntercityOrder() {
+    return ("""mutation update_order_status(\$orderId: uuid!,\$status: String!){
+  update_jetu_intercity_orders_by_pk(
+    pk_columns: {id: \$orderId}
+    _set: { status: \$status }
+  ){
+    status
+  }
+}
+""");
+  }
 }

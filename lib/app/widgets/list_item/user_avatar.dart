@@ -23,12 +23,12 @@ class UserAvatar extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: AppColors.yellow.withOpacity(0.3),
+        color: AppColors.blue.withOpacity(0.3),
       ),
       child: Icon(
         Ionicons.person,
         size: size.sp,
-        color: AppColors.black,
+        color: AppColors.white,
       ),
     );
   }

@@ -35,7 +35,6 @@ class _JetuRequestPanelState extends State<JetuRequestPanel> {
       panelBuilder: (ScrollController sc) {
         return BlocBuilder<JetuMapCubit, JetuMapState>(
           builder: (context, state) {
-            print(state.variables ?? {});
             return SubscriptionWrapper<JetuOrderList>(
               queryString: JetuOrdersQuery.fetchOrders(),
               variables: state.variables ?? {},

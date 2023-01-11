@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:jetu.driver/app/app_navigator.dart';
+import 'package:jetu.driver/app/app_router/app_router.gr.dart';
 import 'package:jetu.driver/app/const/app_const.dart';
 import 'package:jetu.driver/app/resourses/app_colors.dart';
 import 'package:jetu.driver/app/services/jetu_auth/grapql_query.dart';
@@ -10,6 +12,7 @@ import 'package:jetu.driver/app/view/auth/bloc/auth_cubit.dart';
 import 'package:jetu.driver/app/widgets/app_setting_tile_item.dart';
 import 'package:jetu.driver/app/widgets/bottom_sheet_widgets/bottom_sheet_title.dart';
 import 'package:jetu.driver/app/widgets/graphql_wrapper/query_wrapper.dart';
+import 'package:jetu.driver/app/widgets/verified.dart';
 import 'package:jetu.driver/data/model/jetu_driver_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,15 +31,21 @@ class SignInDrawer extends StatelessWidget {
           QueryWrapper<JetuDriverModel>(
             queryString: JetuAuthQuery.fetchUserInfo(),
             variables: {"userId": userId},
-            dataParser: (json) =>
-                JetuDriverModel.fromJson(json, name: 'jetu_drivers_by_pk'),
+            dataParser: (json) => JetuDriverModel.fromJson(
+              json,
+              name: 'jetu_drivers_by_pk',
+            ),
             contentBuilder: (JetuDriverModel data) {
               return ListTile(
                 iconColor: AppColors.black,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                minLeadingWidth: 20.0,
+                minLeadingWidth: 1.0,
+                leading: VerifiedIcon(
+                  isVerified: data.isVerified ?? false,
+                ),
+                horizontalTitleGap: 5,
                 title: Text(
                   '${data.name ?? 'Пусто'} ${data.surname ?? ''}',
                   style: TextStyle(
@@ -60,7 +69,7 @@ class SignInDrawer extends StatelessWidget {
                       return Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BottomSheetTitle(title: 'Меню'),
+                          const BottomSheetTitle(title: 'Меню'),
                           AppSettingTileItem(
                             onTap: () {
                               showDialog(
@@ -121,6 +130,13 @@ class SignInDrawer extends StatelessWidget {
             onTap: () => AppNavigator.navigateToOrderHistory(context),
             icon: Ionicons.car_outline,
             title: 'История заказов',
+          ),
+          AppSettingTileItem(
+            onTap: () => context.router.push(
+              const IntercityScreen(),
+            ),
+            icon: Ionicons.globe_outline,
+            title: 'Межгород',
           ),
           const Spacer(),
           AppSettingTileItem(

@@ -94,10 +94,10 @@ class OrderDetailScreen extends StatelessWidget {
                                   return Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(),
-                                      color: AppColors.yellow,
+                                      color: AppColors.blue,
                                       borderRadius: BorderRadius.circular(999),
                                     ),
-                                    child: Icon(Ionicons.location),
+                                    child: const Icon(Ionicons.location),
                                   );
                                 },
                               ),

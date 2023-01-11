@@ -58,7 +58,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Предоставив это разрешение, карта сможет показать ваше текущее местоположение, чтобы вам было легче найти начальную точку.</string>
+	<string>Этому приложению требуется доступ к местоположению, чтобы иметь возможность находить ближайших заказов и определение ближайшего адреса.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Доступ к вашей медиатеке необходим для загрузки выбранного изображения на сервер для документа/изображения профиля.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

@@ -12,7 +12,7 @@ class JetuDriverSubscription {
 
   static String getDriverOrderHistory() {
     return ("""query (\$driverId: String!){
-  jetu_orders(where: {driver_id: {_eq: \$driverId}}){
+  jetu_orders(where: {driver_id: {_eq: \$driverId}},order_by: {created_at: desc}){
     id,
     point_a_address,
     point_b_address
@@ -21,6 +21,43 @@ class JetuDriverSubscription {
     comment,
     status,
     created_at
+  }
+}
+""");
+  }
+
+  static String getCity() {
+    return ("""query (\$query: String!){
+  jetu_city(
+    where: {title: {_like: \$query}}
+  ) {
+    id
+    title,
+    address
+  }
+}
+""");
+  }
+
+  static String getIntercityOrders() {
+    return ("""subscription check_intercity_order(\$driverId: String!) {
+  jetu_intercity_orders(order_by: {date: asc},where: {driver_id: {_eq: \$driverId},status: {_eq: "finding"}}){
+    id,
+    jetu_city{
+      id,
+      title
+    },
+    a_address,
+    jetuCityByBCity{
+      id,
+      title
+    },
+    b_address,
+    price,
+    comment,
+    date,
+    time,
+    status
   }
 }
 """);

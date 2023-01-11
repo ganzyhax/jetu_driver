@@ -20,12 +20,12 @@ class RoundedButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: AppColors.yellow,
+          color: AppColors.blue,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Icon(
           icon,
-          color: AppColors.black,
+          color: AppColors.white,
         ),
       ),
     );

@@ -24,7 +24,6 @@ class NetworkService {
         'limit': '7',
       };
 
-      print(searchQuery);
       var response = await http.Client().get(
         Uri.https('photon.komoot.io', '/api', searchQuery),
       );
@@ -37,9 +36,6 @@ class NetworkService {
         }
       }
 
-      print('sortedItem ${sortedItem.length}');
-      print(
-          'placeFromJson(response.body).features ${placeFromJson(response.body).features?.length}');
       return sortedItem;
     } catch (err) {
       print('placeAutocompleteError: $err');

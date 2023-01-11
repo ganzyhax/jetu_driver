@@ -9,6 +9,7 @@ import 'package:jetu.driver/app/view/auth/register/write_us_screen.dart';
 import 'package:jetu.driver/app/view/auth/status/status_screen.dart';
 import 'package:jetu.driver/app/view/auth/verify_screen.dart';
 import 'package:jetu.driver/app/view/home/home_screen.dart';
+import 'package:jetu.driver/app/view/intercity/intercity_screen.dart';
 import 'package:jetu.driver/app/view/order_history/order_history_screen.dart';
 import 'package:jetu.driver/app/widgets/remote_config_screen.dart';
 import 'package:jetu.driver/data/app/app_config.dart';
@@ -91,6 +92,13 @@ class AppNavigator {
     _pushToPage(
       context,
       const OrderHistoryScreen(),
+    );
+  }
+
+  static navigateToInterCity(BuildContext context) {
+    _pushToPage(
+      context,
+      const IntercityScreen(),
     );
   }
 

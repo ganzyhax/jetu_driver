@@ -163,7 +163,7 @@ class OrderHistoryScreen extends StatelessWidget {
       case 'canceled':
         return AppColors.red.withOpacity(0.2);
       default:
-        return AppColors.yellow.withOpacity(0.2);
+        return AppColors.blue.withOpacity(0.2);
     }
   }
 

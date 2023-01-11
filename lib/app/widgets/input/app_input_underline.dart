@@ -7,6 +7,7 @@ class AppInputUnderline extends StatelessWidget {
   final bool isEnabled;
   final bool autoFocus;
   final Function(String)? onChange;
+  final TextInputType? keyboardType;
 
   const AppInputUnderline({
     Key? key,
@@ -15,6 +16,7 @@ class AppInputUnderline extends StatelessWidget {
     this.isEnabled = false,
     this.autoFocus = false,
     this.onChange,
+    this.keyboardType
   }) : super(key: key);
 
   @override
@@ -39,6 +41,7 @@ class AppInputUnderline extends StatelessWidget {
         focusedBorder: border,
         border: border,
       ),
+      keyboardType: keyboardType,
       onChanged: (value) {
         EasyDebounce.debounce(
           'search',

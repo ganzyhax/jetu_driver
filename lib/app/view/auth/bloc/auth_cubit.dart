@@ -26,6 +26,7 @@ class AuthCubit extends Cubit<AuthState> {
     bool isLogged = _pref.getBool(AppSharedKeys.isLogged) ?? false;
     String userId = _pref.getString(AppSharedKeys.userId) ?? '';
 
+    //6ij4TNvmojRxK2gTDOCR7u50g793
     emit(state.copyWith(isLogged: isLogged, userId: userId));
     if (isLogged) {
       await checkStatus();
@@ -33,7 +34,6 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> checkStatus() async {
-    print('checkStatus');
     emit(state.copyWith(isLoading: true));
     final QueryOptions options = QueryOptions(
       document: gql(JetuAuthQuery.checkStatus()),
@@ -69,7 +69,6 @@ class AuthCubit extends Cubit<AuthState> {
     );
 
     QueryResult result = await client.query(options);
-    print('res: ${result.data},: ${result.exception}');
     JetuDriverList check = result.parsedData as JetuDriverList;
     emit(state.copyWith(isLoading: false));
     if (check.users.isEmpty) {
@@ -145,7 +144,6 @@ class AuthCubit extends Cubit<AuthState> {
     );
 
     QueryResult result = await client.query(options);
-    print('res: ${result.data},: ${result.exception}');
     JetuDriverList check = result.parsedData as JetuDriverList;
     if (check.users.isEmpty) {
       return false;

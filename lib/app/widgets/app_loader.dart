@@ -9,7 +9,7 @@ class AppLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: CircularProgressIndicator(
-        color: AppColors.black,
+        color: AppColors.white,
         strokeWidth: 3.0.sp,
       ),
     );

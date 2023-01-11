@@ -7,4 +7,13 @@ class JetuDriverMutation {
 }
 """);
   }
+
+  static String createIntercityPost() {
+    return ("""mutation create_intercity_post(\$object: jetu_intercity_orders_insert_input!){
+  insert_jetu_intercity_orders_one(object: \$object){
+    id
+  }
+}
+""");
+  }
 }

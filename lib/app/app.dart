@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:jetu.driver/app/app_router/app_router.gr.dart';
 import 'package:jetu.driver/app/view/auth/bloc/auth_cubit.dart';
 import 'package:jetu.driver/app/view/home/bloc/current_location_cubit.dart';
 import 'package:jetu.driver/app/view/home/bloc/home_cubit.dart';
@@ -15,11 +16,13 @@ class JetuDriver extends StatelessWidget {
   final ValueNotifier<GraphQLClient> client;
   final Widget child;
 
-  const JetuDriver({
+  JetuDriver({
     Key? key,
     required this.client,
     required this.child,
   }) : super(key: key);
+
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +55,11 @@ class JetuDriver extends StatelessWidget {
           child: GlobalLoaderOverlay(
             child: GraphQLProvider(
               client: client,
-              child: MaterialApp(
+              child: MaterialApp.router(
                 debugShowCheckedModeBanner: false,
                 title: 'Jetu Taxi',
-                home: child,
+                routerDelegate: _appRouter.delegate(),
+                routeInformationParser: _appRouter.defaultRouteParser(),
               ),
             ),
           ),
@@ -63,17 +67,18 @@ class JetuDriver extends StatelessWidget {
       },
       child: BlocListener<OrderCubit, OrderState>(
           listener: (context, state) {
-            if (state.isLoading) {
-              context.loaderOverlay.show(
-                widget: const AppOverlayLoader(),
-              );
-            }
+          if (state.isLoading) {
+            context.loaderOverlay.show(
+              widget: const AppOverlayLoader(),
+            );
+          }
 
-            if (!state.isLoading) {
-              context.loaderOverlay.hide();
-            }
-          },
-          child: child),
+          if (!state.isLoading) {
+            context.loaderOverlay.hide();
+          }
+        },
+        child: child,
+      ),
     );
   }
 }

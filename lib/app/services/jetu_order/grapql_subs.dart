@@ -26,4 +26,38 @@ class JetuOrderSubscription {
 }
 """);
   }
+
+  static String getIntercityOrders() {
+    return ("""
+    subscription check_intercity_order(\$start: timestamptz!,\$end: timestamptz!,\$aCity: uuid!,\$bCity: uuid!) {
+  jetu_intercity_orders(order_by: {date: asc},where: {date: {_gte: \$start, _lte: \$end},a_city: {_eq: \$aCity},b_city: {_eq: \$bCity},status: {_eq: "finding"}}){
+    id,
+    jetu_city{
+      id,
+      title
+     
+    },
+    a_address,
+    jetuCityByBCity{
+      id,
+      title
+    },
+    b_address,
+    price,
+    comment,
+    date,
+    time,
+    status,
+    jetu_user{
+      id,
+      name,
+      surname,
+      phone,
+      avatar_url,
+      rating
+      }
+  }
+}
+    """);
+  }
 }

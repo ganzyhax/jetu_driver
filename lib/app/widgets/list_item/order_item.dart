@@ -38,7 +38,7 @@ class OrderItem extends StatelessWidget {
                 UserAvatar(avatarUrl: model.user?.avatarUrl),
                 SizedBox(height: 4.h),
                 Text(
-                  '${model.user?.name ?? ''}',
+                  model.user?.name ?? '',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: AppColors.black,
@@ -65,7 +65,7 @@ class OrderItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${model.aPointAddress ?? 'не указан'}',
+                    model.aPointAddress ?? 'не указан',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: AppColors.black,
@@ -75,7 +75,7 @@ class OrderItem extends StatelessWidget {
                   ),
                   SizedBox(height: 2.h),
                   Text(
-                    '${model.bPointAddress ?? 'не указан'}',
+                    model.bPointAddress ?? 'не указан',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: AppColors.black,
@@ -94,7 +94,7 @@ class OrderItem extends StatelessWidget {
                   SizedBox(height: 2.h),
                   if (model.createdAt != null ?? false)
                     Text(
-                      '${DateFormat('HH:mm a').format(model.createdAt!)}',
+                      DateFormat('HH:mm a').format(model.createdAt!),
                       style: TextStyle(
                         color: AppColors.black,
                         fontSize: 14.sp,
@@ -104,7 +104,7 @@ class OrderItem extends StatelessWidget {
                   SizedBox(height: 2.h),
                   if (model.comment?.isNotEmpty ?? false)
                     Text(
-                      '${model.comment ?? ''}',
+                      model.comment ?? '',
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -114,20 +114,20 @@ class OrderItem extends StatelessWidget {
                       ),
                     ),
                   SizedBox(height: 6.h),
-                  Divider(height: 0),
+                  const Divider(height: 0),
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.all(6),
+              padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: AppColors.yellow,
+                color: AppColors.blue,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
                 model.service?.title ?? '',
-                style: TextStyle(
-                  color: AppColors.black,
+                style: const TextStyle(
+                  color: AppColors.white,
                   fontWeight: FontWeight.w500,
                 ),
               ),

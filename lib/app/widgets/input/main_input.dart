@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jetu.driver/app/widgets/input/app_input_underline.dart';
 
 class AppInputMain extends StatelessWidget {
-  final IconData primaryIcon;
+  final IconData? primaryIcon;
   final IconData? activeIcon;
   final String hintText;
   final TextEditingController controller;
@@ -15,7 +15,7 @@ class AppInputMain extends StatelessWidget {
 
   const AppInputMain({
     Key? key,
-    required this.primaryIcon,
+    this.primaryIcon,
     this.activeIcon,
     required this.hintText,
     required this.controller,

@@ -21,10 +21,9 @@
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="YRO-k0-Ey4">
                                 <rect key="frame" x="0.0" y="284" width="414" height="328"/>
-                                <color key="backgroundColor" red="0.98823523520000001" green="0.94901961089999998" blue="0.31372550129999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.98431372640000003" green="0.93333339689999995" blue="0.30980393290000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.20784312490000001" green="0.37647059560000001" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1a2-6s-vTC"/>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="4X2-HB-R7a"/>
@@ -41,6 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchImage" width="250" height="250"/>
+        <image name="LaunchImage" width="90" height="90"/>
     </resources>
 </document>

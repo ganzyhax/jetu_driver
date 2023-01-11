@@ -34,7 +34,8 @@ class JetuAuthQuery {
     name,
     surname,
     phone,
-    email
+    email,
+    is_verified
   }
 }
 """);

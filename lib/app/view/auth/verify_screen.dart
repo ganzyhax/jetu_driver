@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -92,7 +91,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     ),
                     errorPinTheme: defaultPinTheme.copyWith(
                       decoration: BoxDecoration(
-                        color: AppColors.yellow,
+                        color: AppColors.blue,
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
@@ -119,27 +118,6 @@ class _VerifyScreenState extends State<VerifyScreen> {
         );
       },
     );
-  }
-
-  void login(String code) async {
-    final PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: widget.verificationId, smsCode: code);
-    final UserCredential cr =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-    final String? firebaseToken = cr.user?.uid;
-    // final String firebaseToken = await cr.user!.getIdToken();
-    // print('firebaseToken: $firebaseToken ');
-
-    // final QueryResult qe =
-    // await runMutation({"firebaseToken": firebaseToken}).networkResult!;
-
-    // print(qe.exception);
-    // final String jwt = Login$Mutation.fromJson(qe.data! ).login.jwtToken;
-    // final Box box = await Hive.openBox('user');
-    // box.put("jwt", jwt);
-    // context.read<JWTCubit>().login(jwt);
-    if (!mounted) return;
-    Navigator.pop(context);
   }
 }
 

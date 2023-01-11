@@ -43,12 +43,11 @@ class SubscriptionWrapper<T> extends StatelessWidget {
             ),
           );
         }
-        print(result.data);
         return ResultAccumulator?.appendUniqueEntries(
           latest: result.data,
           builder: (context, {results}) =>
               contentBuilder(result.parserFn(result.data ?? {}) as T),
-        );
+        ) ;
       },
     );
   }

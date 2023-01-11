@@ -57,9 +57,10 @@ class OrderPaymendScreen extends StatelessWidget {
             SizedBox(height: 12.h),
             Container(
               decoration: BoxDecoration(
-                  color: AppColors.yellow.withOpacity(0.4),
-                  borderRadius: BorderRadius.circular(12.sp)),
-              padding: EdgeInsets.all(12),
+                color: AppColors.blue.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(12.sp),
+              ),
+              padding: const EdgeInsets.all(12),
               child: Column(
                 children: [
                   Row(
