@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:jetu.driver/app/app_navigator.dart';
+import 'package:jetu.driver/app/app_router/app_router.gr.dart';
 import 'package:jetu.driver/app/resourses/app_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -26,9 +28,27 @@ class SignOutDrawer extends StatelessWidget {
               'Войти',
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            onTap: () => AppNavigator.navigateToLogin(context),
+            onTap: () => context.router.push(
+              const LoginScreen(),
+            ),
           ),
           const Spacer(),
+          ListTile(
+            iconColor: AppColors.black,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            leading: const Icon(
+              Ionicons.document_outline,
+            ),
+            minLeadingWidth: 20.0,
+            title: Text(
+              'Политика конфиденциальности',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            onTap: () =>
+                launchUrl(Uri.parse('http://eduu.tilda.ws/privacy_policy')),
+          ),
           ListTile(
             iconColor: AppColors.black,
             shape: RoundedRectangleBorder(
@@ -42,21 +62,8 @@ class SignOutDrawer extends StatelessWidget {
               'О нас',
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            onTap: () async {
-              // PackageInfo packageInfo = await PackageInfo.fromPlatform();
-              // showAboutDialog(
-              //   context: context,
-              //   applicationIcon: Image.asset(
-              //     'images/logo.png',
-              //     width: 100,
-              //     height: 100,
-              //   ),
-              //   applicationVersion:
-              //   "${packageInfo.version} (Build ${packageInfo.buildNumber})",
-              //   applicationName: packageInfo.appName,
-              //   applicationLegalese: 'Jetu App, Все права защищены.',
-              // );
-            },
+            onTap: () =>
+                launchUrl(Uri.parse('https://instagram.com/hacker.atyrau')),
           ),
           ListTile(
             iconColor: AppColors.black,
@@ -71,10 +78,9 @@ class SignOutDrawer extends StatelessWidget {
               'Служба поддержки',
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            onTap: () async {
-              launchUrl(Uri.parse(
-                  'https://instagram.com/hacker.atyrau?igshid=NmNmNjAwNzg='));
-            },
+            onTap: () => launchUrl(
+              Uri.parse('whatsapp://send?phone=77058895658'),
+            ),
           ),
         ],
       ),

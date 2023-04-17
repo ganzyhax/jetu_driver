@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:jetu.driver/app/view/account/account_screen.dart';
+import 'package:jetu.driver/app/view/auth/login_screen.dart';
 import 'package:jetu.driver/app/view/home/home_screen.dart';
 import 'package:jetu.driver/app/view/intercity/create/intercity_create_screen.dart';
 import 'package:jetu.driver/app/view/intercity/intercity_find_screen.dart';
@@ -10,6 +12,12 @@ import 'package:jetu.driver/app/view/intercity/intercity_screen.dart';
     AutoRoute(
       page: HomeScreen,
       initial: true,
+    ),
+    AutoRoute(
+      page: LoginScreen,
+    ),
+    AutoRoute(
+      page: AccountScreen,
     ),
     AutoRoute(
       page: IntercityScreen,

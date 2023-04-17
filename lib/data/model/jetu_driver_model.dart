@@ -13,6 +13,7 @@ class JetuDriverModel {
     this.lat,
     this.long,
     this.isVerified,
+    this.amount = 0,
   });
 
   final String? id;
@@ -28,6 +29,7 @@ class JetuDriverModel {
   final double? lat;
   final double? long;
   final bool? isVerified;
+  final double amount;
 
   JetuDriverModel.fromJson(Map<String, dynamic> data, {String name = ''})
       : id = name.isNotEmpty ? data[name]['id'] : data['id'],
@@ -52,7 +54,11 @@ class JetuDriverModel {
             name.isNotEmpty ? data[name]['car_number'] : data['car_number'],
         lat = name.isNotEmpty ? data[name]['lat'] : data['lat'],
         long = name.isNotEmpty ? data[name]['long'] : data['long'],
-        isVerified = name.isNotEmpty ? data[name]['is_verified'] : data['is_verified'];
+        isVerified =
+            name.isNotEmpty ? data[name]['is_verified'] : data['is_verified'],
+        amount = name.isNotEmpty
+            ? double.parse('${data[name]['amount'] ?? 0.0}')
+            : double.parse('${data['amount'] ?? 0.0 }');
 }
 
 class JetuDriverList {

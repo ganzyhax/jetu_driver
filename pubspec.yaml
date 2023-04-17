@@ -1,7 +1,7 @@
 name: jetu.driver
 description: A new Flutter project.
 publish_to: 'none'
-version: 1.0.8+11
+version: 2.1.1+0
 
 environment:
   sdk: '>=2.18.4 <3.0.0'
@@ -28,7 +28,7 @@ dependencies:
   url_launcher: ^6.1.4
   mask: ^1.0.4
   fluttertoast: ^8.1.1
-  pinput: ^2.2.16
+  pinput: ^2.2.31
   get_it: ^7.2.0
   mapbox_search: ^3.0.1+2
   supabase: ^0.3.6
@@ -46,7 +46,7 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   easy_debounce: ^2.0.2+1
   flutter_screenutil: ^5.6.0
-  modal_bottom_sheet: ^2.1.2
+  modal_bottom_sheet: ^3.0.0-pre
   dotted_line: ^3.1.0
 
   dio: ^4.0.6

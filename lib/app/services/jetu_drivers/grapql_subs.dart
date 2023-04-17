@@ -1,4 +1,13 @@
 class JetuDriverSubscription {
+  static String getDriverAmount() {
+    return ("""subscription getDriverAmount(\$driverId: String!) {
+  jetu_drivers_by_pk(id: \$driverId){
+    amount
+  }
+}
+""");
+  }
+
   static String getDrivers() {
     return ("""query(\$lat: float8,\$long: float8){
   near_drivers(args: {latitude: \$lat,longitude:\$long,distance_kms: 3}){
@@ -58,6 +67,18 @@ class JetuDriverSubscription {
     date,
     time,
     status
+  }
+}
+""");
+  }
+
+  static String getDriverTransactionHistory() {
+    return ("""query (\$driverId: String!){
+  transaction(where: {driver_id: {_eq: \$driverId}},order_by: {created_at: desc}){
+    id,
+    amount,
+    type,
+    created_at
   }
 }
 """);

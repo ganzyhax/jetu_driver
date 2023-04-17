@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphql/client.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -15,7 +16,7 @@ class OrderCubit extends Cubit<OrderState> {
 
   late SharedPreferences _prefs;
 
-  acceptOrder(String orderId) async {
+  void acceptOrder(String orderId) async {
     emit(state.copyWith(isLoading: true));
 
     _prefs = await SharedPreferences.getInstance();
@@ -38,7 +39,12 @@ class OrderCubit extends Cubit<OrderState> {
     ));
   }
 
-  changeStatusOrder(String orderId, {required String status}) async {
+  void changeStatusOrder(
+    String orderId, {
+    required String status,
+    String? driverId,
+    String? payment,
+  }) async {
     bool showOrders = false;
     emit(state.copyWith(isLoading: true));
 
@@ -57,6 +63,16 @@ class OrderCubit extends Cubit<OrderState> {
       showOrders = true;
     }
 
+    if (driverId != null) {
+      final query = {
+        "driver_id": driverId,
+        "payment": payment,
+      };
+      await Dio().get(
+        'https://jetu-backend.vercel.app/api/v1/finish_order',
+        queryParameters: query,
+      );
+    }
     emit(state.copyWith(
       isLoading: false,
       isSheetFullView: true,

@@ -6,12 +6,14 @@ class AppSettingTileItem extends StatelessWidget {
   final VoidCallback? onTap;
   final String? title;
   final IconData? icon;
+  final bool firstClosePage;
 
   const AppSettingTileItem({
     Key? key,
     this.onTap,
     this.title,
     this.icon,
+    this.firstClosePage = true,
   }) : super(key: key);
 
   @override
@@ -32,7 +34,7 @@ class AppSettingTileItem extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Navigator.of(context).pop();
+        if (firstClosePage) Navigator.of(context).pop();
         onTap?.call();
       },
     );

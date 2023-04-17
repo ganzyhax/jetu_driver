@@ -30,16 +30,17 @@ class AppConst {
   static const instagramAppSupport = 'https://instagram.com/hacker.atyrau';
 
   static TileLayerOptions getMapTile() {
-    if (kReleaseMode) {
-      return TileLayerOptions(
-        urlTemplate:
-            "https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=$mapBoxAccessToken",
-        additionalOptions: {"access_token": mapBoxAccessToken,},
-        maxNativeZoom: 18,
-      );
-    }
+    // if (kReleaseMode) {
+    //   return TileLayerOptions(
+    //     urlTemplate:
+    //         "https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=$mapBoxAccessToken",
+    //     additionalOptions: {"access_token": mapBoxAccessToken,},
+    //     maxNativeZoom: 18,
+    //   );
+    // }
     return TileLayerOptions(
-      urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+      urlTemplate: "https://mt0.google.com/vt/lyrs=m@221097413&x={x}&y={y}&z={z}",
+      subdomains: ['a', 'b', 'c'],
       maxNativeZoom: 18,
       retinaMode: true,
     );

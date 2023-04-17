@@ -58,9 +58,10 @@ class RuleCheckbox extends StatelessWidget {
             WidgetSpan(
               child: GestureDetector(
                 onTap: () async => await launchUrl(
-                    Uri.parse('https://www.freeprivacypolicy.com/privacy/view/ff8fed2dd3b1f40c3df93ac707d2ecb4')),
+                  Uri.parse('http://eduu.tilda.ws/privacy_policy'),
+                ),
                 child: Text(
-                  'обработку персональных данных',
+                  'политику конфиденциальности',
                   style: TextStyle(
                     decoration: TextDecoration.underline,
                     fontSize: 11.sp,

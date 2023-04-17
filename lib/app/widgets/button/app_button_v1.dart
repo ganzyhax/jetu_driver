@@ -4,6 +4,7 @@ import 'package:jetu.driver/app/resourses/app_colors.dart';
 import 'package:jetu.driver/app/widgets/app_loader.dart';
 
 class AppButtonV1 extends StatelessWidget {
+  final double? height;
   final bool isActive;
   final bool isLoading;
   final String text;
@@ -12,6 +13,7 @@ class AppButtonV1 extends StatelessWidget {
 
   const AppButtonV1({
     Key? key,
+    this.height,
     this.isActive = true,
     this.isLoading = false,
     required this.text,
@@ -22,7 +24,7 @@ class AppButtonV1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 46.h,
+      height: height ?? 46.h,
       decoration: BoxDecoration(
         color: isActive
             ? bgColor ?? AppColors.blue

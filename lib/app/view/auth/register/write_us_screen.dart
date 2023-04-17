@@ -29,7 +29,7 @@ class WriteUsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            OtpHeader(),
+            const OtpHeader(),
             Lottie.asset(
               'assets/lottie/doc_verification.json',
               repeat: false,
@@ -39,7 +39,7 @@ class WriteUsScreen extends StatelessWidget {
               onTap: () => launchUrl(
                 Uri.parse(AppConst.whatsAppSupport),
               ).then((value) => Navigator.of(context).pop(false)),
-              child: AppButtonV1(
+              child: const AppButtonV1(
                 isActive: true,
                 text: 'Написать Ватсап',
               ),

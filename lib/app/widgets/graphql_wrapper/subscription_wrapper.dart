@@ -31,8 +31,10 @@ class SubscriptionWrapper<T> extends StatelessWidget {
         FetchMore? fetchMore,
       }) {
         if (result.isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
 
@@ -45,9 +47,10 @@ class SubscriptionWrapper<T> extends StatelessWidget {
         }
         return ResultAccumulator?.appendUniqueEntries(
           latest: result.data,
-          builder: (context, {results}) =>
-              contentBuilder(result.parserFn(result.data ?? {}) as T),
-        ) ;
+          builder: (context, {results}) => contentBuilder(
+            result.parserFn(result.data ?? {}) as T,
+          ),
+        );
       },
     );
   }

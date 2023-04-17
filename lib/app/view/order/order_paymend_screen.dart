@@ -1,13 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jetu.driver/app/const/app_shared_keys.dart';
 import 'package:jetu.driver/app/resourses/app_colors.dart';
 import 'package:jetu.driver/app/view/order/bloc/order_cubit.dart';
+import 'package:jetu.driver/app/view/order/bloc/order_state.dart';
 import 'package:jetu.driver/app/widgets/bottom_sheet/app_bottom_sheet.dart';
 import 'package:jetu.driver/app/widgets/bottom_sheet_widgets/bottom_sheet_title.dart';
 import 'package:jetu.driver/app/widgets/button/app_button_v1.dart';
 import 'package:jetu.driver/app/widgets/list_item/user_avatar.dart';
 import 'package:jetu.driver/data/model/jetu_order_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class OrderPaymendScreen extends StatelessWidget {
@@ -27,7 +32,7 @@ class OrderPaymendScreen extends StatelessWidget {
       panel: Container(
         child: Column(
           children: [
-            BottomSheetTitle(
+            const BottomSheetTitle(
               title: 'Ожидание оплаты клиента',
               isLargeTitle: true,
             ),
@@ -106,7 +111,7 @@ class OrderPaymendScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Divider(thickness: 2),
+                  const Divider(thickness: 2),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -132,14 +137,31 @@ class OrderPaymendScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 24.h),
-            GestureDetector(
-              onTap: () => context.read<OrderCubit>().changeStatusOrder(
-                    model.id,
-                    status: 'finished',
+            BlocBuilder<OrderCubit, OrderState>(
+              builder: (context, state) {
+                return GestureDetector(
+                  onTap: () async {
+                    if (!state.isLoading) {
+                      SharedPreferences pref =
+                          await SharedPreferences.getInstance();
+                      String driverId =
+                          pref.getString(AppSharedKeys.userId) ?? '';
+
+                      log('ontap finish');
+                      context.read<OrderCubit>().changeStatusOrder(
+                            model.id,
+                            status: 'finished',
+                            driverId: driverId,
+                            payment: model.cost ?? '0',
+                          );
+                    }
+                  },
+                  child: AppButtonV1(
+                    isLoading: state.isLoading,
+                    text: 'Оплата наличными получена',
                   ),
-              child: AppButtonV1(
-                text: 'Оплата наличными получена',
-              ),
+                );
+              },
             ),
           ],
         ),

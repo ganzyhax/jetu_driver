@@ -8,6 +8,7 @@ import 'package:jetu.driver/app/view/auth/register/full_name_screen.dart';
 import 'package:jetu.driver/app/view/auth/register/write_us_screen.dart';
 import 'package:jetu.driver/app/view/auth/status/status_screen.dart';
 import 'package:jetu.driver/app/view/auth/verify_screen.dart';
+import 'package:jetu.driver/app/view/balance/balance_screen.dart';
 import 'package:jetu.driver/app/view/home/home_screen.dart';
 import 'package:jetu.driver/app/view/intercity/intercity_screen.dart';
 import 'package:jetu.driver/app/view/order_history/order_history_screen.dart';
@@ -61,7 +62,8 @@ class AppNavigator {
     );
   }
 
-  static navigateToRegister(BuildContext context, {
+  static navigateToRegister(
+    BuildContext context, {
     required String userId,
     required String phone,
   }) {
@@ -71,7 +73,8 @@ class AppNavigator {
     );
   }
 
-  static navigateToRegisterToWrite(BuildContext context, {
+  static navigateToRegisterToWrite(
+    BuildContext context, {
     required String title,
     required String desc,
   }) {
@@ -92,6 +95,17 @@ class AppNavigator {
     _pushToPage(
       context,
       const OrderHistoryScreen(),
+    );
+  }
+
+  static navigateToBalance(
+    BuildContext context, {
+    required String userId,
+    bool showBackButton = true,
+  }) {
+    _pushToPage(
+      context,
+      BalanceScreen(userId: userId,showBackButton: showBackButton),
     );
   }
 
