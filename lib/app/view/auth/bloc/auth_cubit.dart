@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphql/client.dart';
 import 'package:jetu.driver/app/app_navigator.dart';
+import 'package:jetu.driver/app/app_router/app_router.gr.dart';
 import 'package:jetu.driver/app/const/app_shared_keys.dart';
 import 'package:jetu.driver/app/services/jetu_auth/grapql_query.dart';
 import 'package:jetu.driver/app/view/auth/password_screen.dart';
@@ -76,14 +78,14 @@ class AuthCubit extends Cubit<AuthState> {
     }
     if (check.users.isNotEmpty) {
       _pref = await SharedPreferences.getInstance();
-      _pref.setBool(AppSharedKeys.isLogged, true);
-      _pref.setString(AppSharedKeys.userId, check.users.first.id ?? '');
+      await _pref.setBool(AppSharedKeys.isLogged, true);
+      await _pref.setString(AppSharedKeys.userId, check.users.first.id ?? '');
       emit(state.copyWith(
         isLoading: false,
         isLogged: true,
         userId: check.users.first.id ?? '',
       ));
-      Navigator.of(context).pop(true);
+      if (context.mounted) Navigator.of(context).pop(true);
     }
   }
 
@@ -98,6 +100,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.copyWith(isLoading: false));
 
     if (check) {
+      // ignore: use_build_context_synchronously
       bool isSuccess = await showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -122,14 +125,18 @@ class AuthCubit extends Cubit<AuthState> {
       ));
       if (isSuccess) {
         await checkStatus();
-        AppNavigator.navigateToHome(context);
+        context.router.pushAndPopUntil(
+          const HomeScreen(),
+          predicate: (Route<dynamic> route) => false,
+        );
       }
     } else {
-      AppNavigator.navigateToRegisterToWrite(
-        context,
-        title: 'Регистрация',
-        desc: 'verificationId',
-      );
+      if (context.mounted)
+        AppNavigator.navigateToRegisterToWrite(
+          context,
+          title: 'Регистрация',
+          desc: 'verificationId',
+        );
     }
   }
 
@@ -156,6 +163,11 @@ class AuthCubit extends Cubit<AuthState> {
     _pref.setBool(AppSharedKeys.isLogged, false);
     _pref.setString(AppSharedKeys.userId, '');
     emit(state.copyWith(isLogged: false));
-    AppNavigator.navigateToLogin(context);
+    if (context.mounted) {
+      context.router.pushAndPopUntil(
+        const LoginScreen(),
+        predicate: (Route<dynamic> route) => false,
+      );
+    }
   }
 }

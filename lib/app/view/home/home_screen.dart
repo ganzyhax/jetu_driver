@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -29,9 +31,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late MapController mapController = MapController();
-    late PanelController panelController = PanelController();
-
     return BlocListener<HomeCubit, HomeState>(
       listener: (context, state) {
         if (state.appConfig.version?.showForceUpdate ?? false) {
@@ -56,6 +55,9 @@ class HomeScreen extends StatelessWidget {
           // }
         },
         builder: (context, authState) {
+          if(!authState.isLogged){
+            return content(context, authState.userId);
+          }
           return SubscriptionWrapper<JetuDriverModel>(
             queryString: JetuDriverSubscription.getDriverAmount(),
             variables: {
@@ -71,114 +73,90 @@ class HomeScreen extends StatelessWidget {
                   userId: authState.userId,
                   showBackButton: false,
                 );
-                // log('show balance screen');
-                // AppNavigator.navigateToBalance(
-                //   context,
-                //   userId: authState.userId,
-                //   showBackButton: false,
-                // );
               }
-              return BlocListener<OrderCubit, OrderState>(
-                listener: (context, state) {
-                  if (state.isSheetFullView) {
-                    if (panelController.isAttached) {
-                      panelController.open();
-                    }
-                  }
-                },
-                child: BlocListener<JetuMapCubit, JetuMapState>(
-                  listener: (context, state) async {
-                    if (state.mapPanningStart) {
-                      if (panelController.isAttached) {
-                        await panelController.close();
-                      }
-                    }
-                    // if (!state.mapPanningStart && state.orderList.isNotEmpty) {
-                    //   if (panelController.isAttached) {
-                    //     await panelController.open();
-                    //   }
-                    // }
-                  },
-                  child: Scaffold(
-                    appBar: const AppBarDefault(),
-                    drawer: const AppDrawer(),
-                    body: Stack(
-                      children: [
-                        JetuMap(mapController: mapController),
-                        SubscriptionWrapper<JetuOrderList>(
-                          queryString: JetuOrderSubscription.subscribeOrder(),
-                          variables: {
-                            "driverId": authState.userId,
-                          },
-                          dataParser: (json) =>
-                              JetuOrderList.fromUserJson(json),
-                          contentBuilder: (JetuOrderList data) {
-                            if (data.orders.isNotEmpty) {
-                              context.read<OrderCubit>().fetchNewOrders(false);
-                              switch (data.orders.first.status) {
-                                case "onway":
-                                  context.read<HomeCubit>()..updateLocation();
-                                  return OrderOnWayScreen(
-                                    model: data.orders.first,
-                                    panelController: panelController,
-                                  );
-                                case "arrived":
-                                  context.read<HomeCubit>()..updateLocation();
-                                  return OrderArrivedScreen(
-                                    model: data.orders.first,
-                                    panelController: panelController,
-                                  );
-                                case "started":
-                                  context.read<HomeCubit>()..updateLocation();
-                                  return OrderStartedScreen(
-                                    model: data.orders.first,
-                                    panelController: panelController,
-                                  );
-                                case "paymend":
-                                  context.read<HomeCubit>()..updateLocation();
-                                  return OrderPaymendScreen(
-                                    model: data.orders.first,
-                                    panelController: panelController,
-                                  );
-                              }
-                            }
-                            return JetuRequestPanel(
-                              panelController: panelController,
-                            );
-                          },
-                        ),
-                        SubscriptionWrapper<JetuDriverModel>(
-                          queryString: JetuDriverSubscription.getDriverAmount(),
-                          variables: {
-                            "driverId": authState.userId,
-                          },
-                          dataParser: (json) => JetuDriverModel.fromJson(
-                            json,
-                            name: 'jetu_drivers_by_pk',
-                          ),
-                          contentBuilder: (JetuDriverModel data) {
-                            if (data.amount < 500) {
-                              return BalanceScreen(
-                                  userId: authState.userId,
-                                  showBackButton: false);
-                              // log('show balance screen');
-                              // AppNavigator.navigateToBalance(
-                              //   context,
-                              //   userId: authState.userId,
-                              //   showBackButton: false,
-                              // );
-                            }
-                            return const SizedBox.shrink();
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
+              return content(context, authState.userId);
             },
           );
         },
+      ),
+    );
+  }
+
+  Widget content(BuildContext context, String userId) {
+    late MapController mapController = MapController();
+    late PanelController panelController = PanelController();
+
+    return BlocListener<OrderCubit, OrderState>(
+      listener: (context, state) {
+        if (state.isSheetFullView) {
+          if (panelController.isAttached) {
+            panelController.open();
+          }
+        }
+      },
+      child: BlocListener<JetuMapCubit, JetuMapState>(
+        listener: (context, state) async {
+          if (state.mapPanningStart) {
+            if (panelController.isAttached) {
+              await panelController.close();
+            }
+          }
+          // if (!state.mapPanningStart && state.orderList.isNotEmpty) {
+          //   if (panelController.isAttached) {
+          //     await panelController.open();
+          //   }
+          // }
+        },
+        child: Scaffold(
+          appBar: const AppBarDefault(),
+          drawer: const AppDrawer(),
+          body: Stack(
+            children: [
+              JetuMap(mapController: mapController),
+              SubscriptionWrapper<JetuOrderList>(
+                queryString: JetuOrderSubscription.subscribeOrder(),
+                variables: {
+                  "driverId": userId,
+                },
+                dataParser: (json) => JetuOrderList.fromUserJson(json),
+                contentBuilder: (JetuOrderList data) {
+                  if (data.orders.isNotEmpty) {
+                    context.read<OrderCubit>().fetchNewOrders(false);
+                    switch (data.orders.first.status) {
+                      case "onway":
+                        context.read<HomeCubit>()..updateLocation();
+                        return OrderOnWayScreen(
+                          model: data.orders.first,
+                          panelController: panelController,
+                        );
+                      case "arrived":
+                        context.read<HomeCubit>()..updateLocation();
+                        return OrderArrivedScreen(
+                          model: data.orders.first,
+                          panelController: panelController,
+                        );
+                      case "started":
+                        context.read<HomeCubit>()..updateLocation();
+                        return OrderStartedScreen(
+                          model: data.orders.first,
+                          panelController: panelController,
+                        );
+                      case "paymend":
+                        context.read<HomeCubit>()..updateLocation();
+                        return OrderPaymendScreen(
+                          model: data.orders.first,
+                          panelController: panelController,
+                        );
+                    }
+                  }
+                  return JetuRequestPanel(
+                    panelController: panelController,
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

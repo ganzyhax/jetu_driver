@@ -17,7 +17,7 @@ import 'package:jetu.driver/data/app/app_config.dart';
 
 class AppNavigator {
   static navigateToHome(BuildContext context) async {
-    _pushReplacement(
+    _pushAndRemoveUntilPage(
       context,
       const HomeScreen(),
     );

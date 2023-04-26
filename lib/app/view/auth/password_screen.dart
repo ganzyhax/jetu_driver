@@ -70,7 +70,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                         AppNavigator.navigateToForgetPasswordScreen(
                       context,
                     ),
-                    child: Text('Забыли пороль?'),
+                    child: const Text('Забыли пороль?'),
                   ),
                 ),
                 SizedBox(height: 12.h),

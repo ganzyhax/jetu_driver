@@ -38,8 +38,7 @@ class _JetuRequestPanelState extends State<JetuRequestPanel> {
             return SubscriptionWrapper<JetuOrderList>(
               queryString: JetuOrdersQuery.fetchOrders(),
               variables: state.variables ?? {},
-              dataParser: (json) =>
-                  JetuOrderList.fromUserJson(json, name: 'orders_by_bound'),
+              dataParser: (json) => JetuOrderList.fromUserJson(json, name: 'orders_by_bound'),
               contentBuilder: (JetuOrderList data) {
                 if (data.orders.isNotEmpty) {
                   return ListView.builder(

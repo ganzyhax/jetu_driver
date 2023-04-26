@@ -9,12 +9,14 @@ import 'package:jetu.driver/app/view/intercity/intercity_screen.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Route,Screen',
   routes: <AutoRoute>[
-    AutoRoute(
+    CustomRoute(
       page: HomeScreen,
       initial: true,
+      transitionsBuilder: TransitionsBuilders.noTransition,
     ),
-    AutoRoute(
+    CustomRoute(
       page: LoginScreen,
+      transitionsBuilder: TransitionsBuilders.noTransition,
     ),
     AutoRoute(
       page: AccountScreen,

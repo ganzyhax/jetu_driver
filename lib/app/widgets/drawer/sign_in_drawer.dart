@@ -95,7 +95,9 @@ class SignInDrawer extends StatelessWidget {
             title: 'Служба поддержки',
           ),
           AppSettingTileItem(
-            onTap: () => context.read<AuthCubit>().logout(context),
+            onTap: () {
+              context.read<AuthCubit>().logout(context);
+            },
             icon: Ionicons.log_out_outline,
             title: 'Выйти',
           ),

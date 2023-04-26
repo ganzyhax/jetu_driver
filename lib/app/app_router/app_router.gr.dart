@@ -28,15 +28,21 @@ class AppRouter extends _i7.RootStackRouter {
   @override
   final Map<String, _i7.PageFactory> pagesMap = {
     HomeScreen.name: (routeData) {
-      return _i7.MaterialPageX<dynamic>(
+      return _i7.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.HomeScreen(),
+        transitionsBuilder: _i7.TransitionsBuilders.noTransition,
+        opaque: true,
+        barrierDismissible: false,
       );
     },
     LoginScreen.name: (routeData) {
-      return _i7.MaterialPageX<dynamic>(
+      return _i7.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i2.LoginScreen(),
+        transitionsBuilder: _i7.TransitionsBuilders.noTransition,
+        opaque: true,
+        barrierDismissible: false,
       );
     },
     AccountScreen.name: (routeData) {
