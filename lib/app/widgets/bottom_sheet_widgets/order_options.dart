@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:jetu.driver/app/view/jetu_map/bloc/yandex_map_bloc.dart';
 import 'package:jetu.driver/app/view/order/bloc/order_cubit.dart';
 import 'package:jetu.driver/app/widgets/app_setting_tile_item.dart';
 import 'package:jetu.driver/app/widgets/bottom_sheet_widgets/bottom_sheet_title.dart';
@@ -26,11 +27,17 @@ class OrderOptions extends StatelessWidget {
         children: [
           BottomSheetTitle(title: 'Опция'),
           AppSettingTileItem(
-            onTap: () => context.read<OrderCubit>()
-              ..changeStatusOrder(
-                model.id,
-                status: 'canceled',
-              ),
+            onTap: () {
+              BlocProvider.of<YandexMapBloc>(context)
+                ..add(YandexMapResetTimers());
+              BlocProvider.of<YandexMapBloc>(context)
+                ..add(YandexMapClearObject(withLoad: true));
+              context.read<OrderCubit>()
+                ..changeStatusOrder(
+                  model.id,
+                  status: 'canceled',
+                );
+            },
             icon: Ionicons.remove_circle_outline,
             title: 'Отменить заказ',
           ),

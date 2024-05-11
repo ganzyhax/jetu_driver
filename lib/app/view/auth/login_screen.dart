@@ -49,8 +49,6 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state.error.isNotEmpty) {
             AppToast.center(state.error);
           }
-
-          if (state.success) {}
         },
         builder: (context, state) {
           return SafeArea(
@@ -101,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(width: 5.w),
                         Flexible(
                           child: TextFieldInput(
-                            hintText: 'номер телефона',
+                            hintText: 'Номер телефона',
                             textInputType: TextInputType.phone,
                             textEditingController: _phoneController,
                             isPhoneInput: true,
@@ -118,7 +116,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 12.h),
                     GestureDetector(
                       onTap: () {
-                        if (!state.isLoading) {
+                        if (!state.isLoading &&
+                            _phoneController.text.isNotEmpty &&
+                            ruleAgree) {
                           context.read<AuthCubit>().checkPhone(
                                 context: context,
                                 phone: _phoneController.text,

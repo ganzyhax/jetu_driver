@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jetu.driver/app/resourses/app_colors.dart';
 import 'package:jetu.driver/app/view/order/bloc/order_cubit.dart';
 import 'package:jetu.driver/app/widgets/bottom_sheet/app_bottom_sheet.dart';
 import 'package:jetu.driver/app/widgets/bottom_sheet/app_detail_sheet.dart';
@@ -14,52 +15,55 @@ import 'package:map_launcher/map_launcher.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class OrderStartedScreen extends StatelessWidget {
-  final PanelController panelController;
   final JetuOrderModel model;
 
   const OrderStartedScreen({
     Key? key,
-    required this.panelController,
     required this.model,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBottomSheet(
-      panelController: panelController,
+      maxHeight: 0.425,
       panel: Container(
-        child: Column(
-          children: [
-            BottomSheetTitle(
-              title: 'Направление к месту назначение',
-            ),
-            OrderItem(
-              model: model,
-            ),
-            SizedBox(height: 12.h),
-            GestureDetector(
-              onTap: () async => AppDetailSheet.open(
-                context,
-                widget: ExternalMaps(
-                  maps: await MapLauncher.installedMaps,
-                  location: model.aPoint(),
+        color: AppColors.white,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 12.w,
+          ),
+          child: Column(
+            children: [
+              OrderItem(
+                model: model,
+                showPhone: true,
+              ),
+              SizedBox(height: 12.h),
+              GestureDetector(
+                onTap: () => context.read<OrderCubit>().changeStatusOrder(
+                      model.id,
+                      status: 'paymend',
+                    ),
+                child: const AppButtonV1(
+                  text: 'Завершить поездку',
                 ),
               ),
-              child: AppButtonV2(
-                text: '🧭 Навигация',
-              ),
-            ),
-            SizedBox(height: 6.h),
-            GestureDetector(
-              onTap: () => context.read<OrderCubit>().changeStatusOrder(
-                    model.id,
-                    status: 'paymend',
+              SizedBox(height: 6.h),
+              GestureDetector(
+                onTap: () async => AppDetailSheet.open(
+                  context,
+                  widget: ExternalMaps(
+                    maps: await MapLauncher.installedMaps,
+                    location: model.aPoint(),
                   ),
-              child: AppButtonV1(
-                text: 'Завершить поездку',
+                ),
+                child: const AppButtonV2(
+                  text: 'Навигация',
+                ),
               ),
-            ),
-          ],
+              const Spacer(),
+            ],
+          ),
         ),
       ),
     );

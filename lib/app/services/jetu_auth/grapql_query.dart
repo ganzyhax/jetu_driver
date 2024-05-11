@@ -18,10 +18,22 @@ class JetuAuthQuery {
 """);
   }
 
+  static String resetPhone() {
+    return ("""query check_driver_reset(\$phone: String!){
+  jetu_drivers (where: {phone: {_like: \$phone}}){
+    id,
+    status
+  }
+}
+""");
+  }
+
   static String checkStatus() {
     return ("""query check_driver_status(\$userId: String!){
   jetu_drivers_by_pk (id: \$userId){
     status
+    id
+    name
   }
 }
 """);
@@ -35,6 +47,7 @@ class JetuAuthQuery {
     surname,
     phone,
     email,
+    avatar_url,
     is_verified,
     amount
   }

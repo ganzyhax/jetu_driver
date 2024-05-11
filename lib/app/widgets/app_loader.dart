@@ -9,7 +9,7 @@ class AppLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: CircularProgressIndicator(
-        color: AppColors.white,
+        color: AppColors.blue,
         strokeWidth: 3.0.sp,
       ),
     );
@@ -25,12 +25,12 @@ class AppOverlayLoader extends StatelessWidget {
       child: Container(
         height: 64.h,
         width: 64.h,
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(20),
         ),
-        child: AppLoader(),
+        child: const AppLoader(),
       ),
     );
   }

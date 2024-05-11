@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jetu.driver/app/app_navigator.dart';
+import 'package:jetu.driver/app/app_router/app_router.gr.dart';
 import 'package:jetu.driver/app/resourses/app_colors.dart';
 import 'package:jetu.driver/app/view/auth/bloc/auth_cubit.dart';
 import 'package:jetu.driver/app/widgets/app_bar/app_bar_default.dart';
@@ -26,7 +27,7 @@ class StatusScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (status == 'pending_approval') pendingWidget(context),
+            pendingWidget(context),
           ],
         ),
       ),
@@ -37,7 +38,11 @@ class StatusScreen extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.status == 'approved') {
-          AppNavigator.navigateToHome(context);
+          context.router.pushAndPopUntil(
+            const HomeScreen(),
+            predicate: (Route<dynamic> route) => false,
+          );
+          // AppNavigator.navigateToHome(context);
         }
       },
       builder: (context, state) {
@@ -74,7 +79,7 @@ class StatusScreen extends StatelessWidget {
                 onTap: () => context.read<AuthCubit>().checkStatus(),
                 child: AppButtonV1(
                   isLoading: state.isLoading,
-                  text: 'Проверит статус',
+                  text: 'Проверить статус',
                 ),
               )
             ],

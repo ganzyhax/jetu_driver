@@ -29,7 +29,6 @@ class BottomSheetTitle extends StatelessWidget {
             style: TextStyle(
               color: AppColors.black,
               fontSize: isLargeTitle ? 18.sp : 14.sp,
-              fontWeight: FontWeight.w600,
             ),
           ),
           Divider(height: 12.h)

@@ -34,4 +34,15 @@ class JetuOrderMutation {
 }
 """);
   }
+
+  static createFareAlert() {
+    return ("""mutation create_alert_fare(\$object: alert_fare_insert_input!){
+  insert_alert_fare(objects: [\$object]){
+    returning {
+      id
+    }
+  }
+}
+""");
+  }
 }

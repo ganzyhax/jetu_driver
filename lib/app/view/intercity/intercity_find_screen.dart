@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -123,7 +125,7 @@ class _OrderList extends StatelessWidget {
                   itemCount: data.orders.length,
                   itemBuilder: (context, index) {
                     final order = data.orders[index];
-
+                    log(order.user.toString());
                     return IntercityOrderItem(
                       model: order,
                     );

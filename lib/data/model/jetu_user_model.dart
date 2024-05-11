@@ -7,6 +7,7 @@ class JetuUserModel {
     this.email,
     this.rating,
     this.avatarUrl,
+    this.token,
   });
 
   final String? id;
@@ -16,6 +17,7 @@ class JetuUserModel {
   final String? email;
   final double? rating;
   final String? avatarUrl;
+  final String? token;
 
   JetuUserModel.fromJson(Map<String, dynamic> data, {String name = ''})
       : id = name.isNotEmpty ? data[name]['id'] : data['id'],
@@ -23,6 +25,7 @@ class JetuUserModel {
         surname = name.isNotEmpty ? data[name]['surname'] : data['surname'],
         phone = name.isNotEmpty ? data[name]['phone'] : data['phone'],
         email = name.isNotEmpty ? data[name]['email'] : data['email'],
+        token = name.isNotEmpty ? data[name]['token'] : data['token'],
         rating = name.isNotEmpty
             ? data[name]['rating'] != null
                 ? double.parse(data[name]['rating'].toString())
@@ -30,5 +33,6 @@ class JetuUserModel {
                     ? double.parse(data['rating'].toString())
                     : 0.0
             : 0.0,
-        avatarUrl = data['avatar_url'];
+        avatarUrl =
+            name.isNotEmpty ? data[name]['avatarUrl'] : data['avatarUrl'];
 }

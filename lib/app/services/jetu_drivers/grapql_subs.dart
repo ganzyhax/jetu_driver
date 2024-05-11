@@ -8,6 +8,17 @@ class JetuDriverSubscription {
 """);
   }
 
+  static String getDriverAmountQuery() {
+    return ("""query getDriverAmount(\$driverId: String!) {
+  jetu_drivers_by_pk(id: \$driverId){
+    amount
+    id
+    status
+  }
+}
+""");
+  }
+
   static String getDrivers() {
     return ("""query(\$lat: float8,\$long: float8){
   near_drivers(args: {latitude: \$lat,longitude:\$long,distance_kms: 3}){

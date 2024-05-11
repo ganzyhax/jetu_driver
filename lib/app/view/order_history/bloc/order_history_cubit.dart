@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphql/client.dart';
 import 'package:jetu.driver/app/const/app_shared_keys.dart';
@@ -28,6 +30,7 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
     );
 
     QueryResult result = await client.query(options);
+    log("orderHistory: ${result.exception}");
     JetuOrderList res = result.parsedData as JetuOrderList;
     emit(state.copyWith(
       isLoading: false,

@@ -18,8 +18,18 @@ class JetuAuthMutation {
   // }
   static String updateDriverData() {
     return ("""mutation update_user(\$userId: String!,\$name: String!,\$surname: String!, \$email: String!){
-  update_jetu_users_by_pk(pk_columns: {id: \$userId}
+  update_jetu_drivers_by_pk(pk_columns: {id: \$userId}
     _set: {name: \$name,surname: \$surname,email: \$email}){
+    id
+  }
+}
+""");
+  }
+
+  static String resetUserPassword() {
+    return ("""mutation update_user(\$userId: String!,\$password: String!){
+  update_jetu_drivers_by_pk(pk_columns: {id: \$userId}  
+    _set: {password: \$password}){
     id
   }
 }

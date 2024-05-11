@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -18,6 +20,7 @@ class IntercityOrderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(model.time!.toString());
     return InkWell(
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -37,7 +40,7 @@ class IntercityOrderItem extends StatelessWidget {
                   children: [
                     SizedBox(width: 4.w),
                     Text(
-                      model.user?.name ?? '',
+                      model.user?.name ?? 'Не указано',
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: AppColors.black,

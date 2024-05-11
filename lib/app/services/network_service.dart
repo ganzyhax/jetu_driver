@@ -1,10 +1,11 @@
+import 'dart:async';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:jetu.driver/app/const/app_const.dart';
 import 'package:jetu.driver/data/model/place_item.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:mapbox_api/mapbox_api.dart';
-import 'package:polyline_do/polyline_do.dart';
 import 'package:supabase/supabase.dart';
 
 class NetworkService {
@@ -71,22 +72,18 @@ class NetworkService {
 
       if (response.routes?.isNotEmpty ?? false) {
         final route = response.routes![0];
-        final polyline = Polyline.Decode(
-          encodedString: route.geometry,
-          precision: 5,
-        );
 
-        final coordinates = polyline.decodedCoords;
+
         final path = <LatLng>[];
 
-        for (var i = 0; i < coordinates.length; i++) {
-          path.add(
-            LatLng(
-              coordinates[i][0],
-              coordinates[i][1],
-            ),
-          );
-        }
+        // for (var i = 0; i < coordinates.length; i++) {
+        //   path.add(
+        //     LatLng(
+        //       coordinates[i][0],
+        //       coordinates[i][1],
+        //     ),
+        //   );
+        // }
 
         return path;
       }
@@ -145,4 +142,16 @@ class NetworkService {
 //   }
 // }
 
+}
+/// default timer.periodic does not fire right away
+Timer makePeriodicCall(
+    Duration duration,
+    void Function(Timer timer) callback, {
+      bool fireNow = false,
+    }) {
+  var timer = Timer.periodic(duration, callback);
+  if (fireNow) {
+    callback(timer);
+  }
+  return timer;
 }

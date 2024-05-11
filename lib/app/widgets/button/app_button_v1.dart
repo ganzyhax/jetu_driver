@@ -9,6 +9,8 @@ class AppButtonV1 extends StatelessWidget {
   final bool isLoading;
   final String text;
   final TextStyle? textStyle;
+  final Color? inActiveColor;
+  final Color? inActiveTextColor;
   final Color? bgColor;
 
   const AppButtonV1({
@@ -18,6 +20,8 @@ class AppButtonV1 extends StatelessWidget {
     this.isLoading = false,
     required this.text,
     this.textStyle,
+    this.inActiveColor,
+    this.inActiveTextColor,
     this.bgColor,
   }) : super(key: key);
 
@@ -28,7 +32,9 @@ class AppButtonV1 extends StatelessWidget {
       decoration: BoxDecoration(
         color: isActive
             ? bgColor ?? AppColors.blue
-            : bgColor?.withOpacity(0.6) ?? AppColors.blue.withOpacity(0.6),
+            : inActiveColor ??
+            bgColor?.withOpacity(0.6) ??
+            AppColors.blue.withOpacity(0.6),
         borderRadius: BorderRadius.circular(12),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -43,7 +49,9 @@ class AppButtonV1 extends StatelessWidget {
               textAlign: TextAlign.center,
               style: textStyle ??
                   TextStyle(
-                    color: Colors.white,
+                    color: isActive
+                        ? AppColors.white
+                        : inActiveTextColor ?? AppColors.white,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
                   ),

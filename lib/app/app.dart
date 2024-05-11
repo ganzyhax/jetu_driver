@@ -6,20 +6,22 @@ import 'package:jetu.driver/app/app_router/app_router.gr.dart';
 import 'package:jetu.driver/app/view/auth/bloc/auth_cubit.dart';
 import 'package:jetu.driver/app/view/home/bloc/current_location_cubit.dart';
 import 'package:jetu.driver/app/view/home/bloc/home_cubit.dart';
-import 'package:jetu.driver/app/view/home/widgets/jetu_map/bloc/jetu_map_cubit.dart';
+import 'package:jetu.driver/app/view/home/new_fare/bloc/order_new_fare_cubit.dart';
+import 'package:jetu.driver/app/view/jetu_map/bloc/yandex_map_bloc.dart';
 import 'package:jetu.driver/app/view/order/bloc/order_cubit.dart';
 import 'package:jetu.driver/app/view/order/bloc/order_state.dart';
+import 'package:jetu.driver/app/view/verification/bloc/verification_cubit.dart';
 import 'package:jetu.driver/app/widgets/app_loader.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 class JetuDriver extends StatelessWidget {
   final ValueNotifier<GraphQLClient> client;
-  final Widget child;
+  final bool isLogged;
 
   JetuDriver({
     Key? key,
     required this.client,
-    required this.child,
+    required this.isLogged,
   }) : super(key: key);
 
   final _appRouter = AppRouter();
@@ -43,13 +45,18 @@ class JetuDriver extends StatelessWidget {
                 ..updateLocation(),
             ),
             BlocProvider(
-              create: (context) => JetuMapCubit(client: client.value)..init(),
+              create: (context) =>
+                  YandexMapBloc(client: client.value)..add(YandexMapLoad()),
             ),
             BlocProvider(
               create: (context) => CurrentLocationCubit(),
             ),
             BlocProvider(
               create: (context) => OrderCubit(client: client.value),
+            ),
+            BlocProvider(
+              lazy: false,
+              create: (context) => VerificationCubit(client: client.value),
             ),
           ],
           child: GlobalLoaderOverlay(
@@ -66,7 +73,7 @@ class JetuDriver extends StatelessWidget {
         );
       },
       child: BlocListener<OrderCubit, OrderState>(
-          listener: (context, state) {
+        listener: (context, state) {
           if (state.isLoading) {
             context.loaderOverlay.show(
               widget: const AppOverlayLoader(),
@@ -77,7 +84,6 @@ class JetuDriver extends StatelessWidget {
             context.loaderOverlay.hide();
           }
         },
-        child: child,
       ),
     );
   }

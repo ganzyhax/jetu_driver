@@ -1,13 +1,15 @@
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:jetu.driver/app/di/injection.dart';
-import 'package:jetu.driver/app/resourses/app_colors.dart';
-import 'package:jetu.driver/app/view/order_history/bloc/order_history_cubit.dart';
-import 'package:jetu.driver/app/widgets/app_loader.dart';
+
+import '../../di/injection.dart';
+import '../../resourses/app_colors.dart';
+import '../../resourses/app_icons.dart';
+import '../../widgets/app_bar/app_bar_default.dart';
+import '../../widgets/app_loader.dart';
+import 'bloc/order_history_cubit.dart';
 
 class OrderHistoryScreen extends StatelessWidget {
   const OrderHistoryScreen({Key? key}) : super(key: key);
@@ -19,25 +21,9 @@ class OrderHistoryScreen extends StatelessWidget {
         client: injection(),
       )..init(),
       child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: AppColors.white,
-          title: const Text(
-            'История заказов',
-            style: TextStyle(
-              color: AppColors.black,
-            ),
-          ),
-          centerTitle: true,
-          leading: GestureDetector(
-            onTap: () => Navigator.of(context).pop(false),
-            child: const Icon(
-              Icons.arrow_back_ios_rounded,
-              color: AppColors.black,
-            ),
-          ),
+        appBar: const AppBarBack(
+          title: "История заказов",
         ),
-        backgroundColor: AppColors.white,
         body: Column(
           children: [
             Expanded(
@@ -61,90 +47,143 @@ class OrderHistoryScreen extends StatelessWidget {
                   }
                   return ListView.separated(
                     itemCount: state.orderList.length,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                    ),
                     itemBuilder: (context, index) {
                       final order = state.orderList[index];
-                      return Padding(
+                      String currency =
+                          (order.currency.toString().contains('Kaspi'))
+                              ? ' тг, Kaspi Bank'
+                              : (order.currency.toString().contains('Halyk'))
+                                  ? 'Halyk Bank'
+                                  : 'Наличные';
+                      return Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 24.w,
+                          horizontal: 12.w,
+                          vertical: 12.w,
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            ListTile(
-                              horizontalTitleGap: 0,
-                              contentPadding: const EdgeInsets.all(0),
-                              leading: Column(
-                                children: [
-                                  Icon(
-                                    Ionicons.location,
-                                    color: AppColors.black.withOpacity(0.4),
-                                    size: 12.sp,
-                                  ),
-                                  SizedBox(height: 2.h),
-                                  const DottedLine(
-                                    direction: Axis.vertical,
-                                    //dashColor: CustomTheme.neutralColors,
-                                    lineLength: 20,
-                                    lineThickness: 1.0,
-                                  ),
-                                  SizedBox(height: 2.h),
-                                  Icon(
-                                    Ionicons.flag,
-                                    color: AppColors.black.withOpacity(0.4),
-                                    size: 12.sp,
-                                  ),
-                                ],
-                              ),
-                              title: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    order.aPointAddress ?? '',
-                                    style: TextStyle(
-                                      color: AppColors.black,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  SizedBox(height: 6.h),
-                                  Text(
-                                    order.bPointAddress ?? '',
-                                    style: TextStyle(
-                                      color: AppColors.black,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              trailing: Container(
-                                width: 100.w,
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 6.w,
-                                  vertical: 6.h,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: statusColor(order.status ?? ''),
-                                ),
-                                child: Text(
-                                  '${order.cost} ₸\n${statusText(order.status ?? '')}',
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 6.h),
-                            Text(
-                              DateFormat('HH:mm , MMM d, yyyy', 'ru')
-                                  .format(order.createdAt!),
-                            ),
+                        decoration: ShapeDecoration(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          shadows: const [
+                            BoxShadow(
+                              color: Color(0x26000000),
+                              blurRadius: 10,
+                              offset: Offset(0, 4),
+                              spreadRadius: 0,
+                            )
                           ],
+                        ),
+                        child: ListTile(
+                          horizontalTitleGap: 0,
+                          contentPadding: const EdgeInsets.all(0),
+                          title: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                statusText(order.status ?? ''),
+                                style: TextStyle(
+                                  color: statusColor(order.status ?? ''),
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(height: 8.h),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                    AppIcons.pointAIcon,
+                                  ),
+                                  SizedBox(width: 10.w),
+                                  Expanded(
+                                    child: Text(
+                                      order.aPointAddress ?? '',
+                                      style: TextStyle(
+                                        color: AppColors.black,
+                                        fontSize: 13.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 6.h),
+                              Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    AppIcons.pointBIcon,
+                                  ),
+                                  SizedBox(width: 10.w),
+                                  Expanded(
+                                    child: Text(
+                                      order.bPointAddress ?? '',
+                                      style: TextStyle(
+                                        color: AppColors.black,
+                                        fontSize: 13.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5.h),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text.rich(
+                                    TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: order.cost,
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: ' тг, ' + currency,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    DateFormat('d MMM в HH:mm', 'ru')
+                                        .format(order.createdAt!),
+                                    style: TextStyle(
+                                      color: AppColors.black.withOpacity(0.6),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
                     separatorBuilder: (context, index) {
-                      return const Divider();
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 5.h),
+                        child: Divider(
+                          thickness: 1.h,
+                          color: AppColors.white.withOpacity(0.2),
+                        ),
+                      );
                     },
                   );
                 },
@@ -159,18 +198,18 @@ class OrderHistoryScreen extends StatelessWidget {
   Color statusColor(String status) {
     switch (status) {
       case 'finished':
-        return AppColors.green.withOpacity(0.2);
+        return AppColors.green;
       case 'canceled':
-        return AppColors.red.withOpacity(0.2);
+        return AppColors.red;
       default:
-        return AppColors.blue.withOpacity(0.2);
+        return AppColors.blue;
     }
   }
 
   String statusText(String status) {
     switch (status) {
       case 'finished':
-        return 'Выполнено';
+        return 'Выполнен';
       case 'canceled':
         return 'Отменен';
       default:

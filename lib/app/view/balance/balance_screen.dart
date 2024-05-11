@@ -1,17 +1,22 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:jetu.driver/app/const/app_const.dart';
 import 'package:jetu.driver/app/di/injection.dart';
 import 'package:jetu.driver/app/resourses/app_colors.dart';
 import 'package:jetu.driver/app/services/jetu_auth/grapql_query.dart';
 import 'package:jetu.driver/app/view/balance/bloc/transaction_cubit.dart';
+import 'package:jetu.driver/app/view/payment/payent_screen.dart';
 import 'package:jetu.driver/app/widgets/app_loader.dart';
 import 'package:jetu.driver/app/widgets/button/app_button_v1.dart';
 import 'package:jetu.driver/app/widgets/graphql_wrapper/query_wrapper.dart';
+import 'package:jetu.driver/app/widgets/text_field_input.dart';
 import 'package:jetu.driver/data/model/jetu_driver_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../app_router/app_router.gr.dart';
+import '../../const/app_const.dart';
 
 class BalanceScreen extends StatelessWidget {
   final String userId;
@@ -25,6 +30,7 @@ class BalanceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController balance = TextEditingController();
     return BlocProvider(
       create: (context) => TransactionCubit(
         client: injection(),
@@ -65,88 +71,89 @@ class BalanceScreen extends StatelessWidget {
                   name: 'jetu_drivers_by_pk',
                 ),
                 contentBuilder: (JetuDriverModel data) {
-                  return Container(
-                    padding: EdgeInsets.only(
-                      top: 12.h,
-                      bottom: 24.h,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(16.r),
-                        bottomRight: Radius.circular(16.r),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 24),
+                      if (data.amount > 200)
+                        Text(
+                          'Вы сможете принимать заказы',
+                          style: TextStyle(color: statusColor('green')),
+                        )
+                      else
                         Column(
                           children: [
-                            Text(
-                              '${data.amount ?? '0.0'} ₸',
-                              style: TextStyle(
-                                color: AppColors.black,
-                                fontSize: 24.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            SizedBox(height: 8.h),
-                            if (data.amount > 500)
-                              Container(
+                            Center(
+                              child: Container(
                                 padding: EdgeInsets.symmetric(
                                   horizontal: 6.w,
                                   vertical: 6.h,
                                 ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
-                                  color: statusColor('green'),
+                                  color: statusColor('red'),
                                 ),
                                 child: const Text(
-                                  'Вы сможете принимать заказы',
+                                  'Ваш баланс менее 200 ₸\n Пожалуйста, пополните, через онлайн платеж',
+                                  textAlign: TextAlign.center,
                                 ),
-                              )
-                            else
-                              Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 6.w,
-                                      vertical: 6.h,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12),
-                                      color: statusColor('red'),
-                                    ),
-                                    child: const Text(
-                                      'Ваш баланс менее 500 ₸\n Пожалуйста, пополните, написав нашему менеджеру',
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  SizedBox(height: 12.h),
-                                  GestureDetector(
-                                    onTap: () => launchUrl(
-                                      Uri.parse(AppConst.whatsAppSupport),
-                                    ).then(
-                                      (value) =>
-                                          Navigator.of(context).pop(false),
-                                    ),
-                                    child: AppButtonV1(
-                                      height: 24.h,
-                                      bgColor: AppColors.green,
-                                      text: 'Написать Ватсап',
-                                      textStyle: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 13.sp,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
+                              ),
+                            ),
+                            SizedBox(height: 12.h),
+                            // GestureDetector(
+                            //   onTap: () => launchUrl(
+                            //     Uri.parse(AppConst.whatsAppSupport),
+                            //   ).then(
+                            //         (value) =>
+                            //         Navigator.of(context).pop(false),
+                            //   ),
+                            //   child:
+                            // ),
                           ],
                         ),
-                      ],
-                    ),
+                      const SizedBox(height: 12),
+                      Text(
+                        '${data.amount ?? '0.0'} ₸',
+                        style: TextStyle(
+                          color: AppColors.black,
+                          fontSize: 24.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(height: 8.h),
+                      TextFieldInput(
+                        hintText: 'Баланс',
+                        textInputType: TextInputType.phone,
+                        textEditingController: balance,
+                        isPhoneInput: false,
+                        autoFocus: true,
+                      ),
+                      SizedBox(height: 8.h),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PaymentWeb(
+                                      driverId: data.id.toString(),
+                                      addBalance: balance.text,
+                                      untilBalance: data.amount.toString(),
+                                    )),
+                          );
+                        },
+                        child: AppButtonV1(
+                          height: 36.h,
+                          bgColor: AppColors.blue,
+                          text: 'Пополнить баланс',
+                          textStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
                   );
                 },
               ),
@@ -156,7 +163,6 @@ class BalanceScreen extends StatelessWidget {
                 style: TextStyle(
                   color: AppColors.black,
                   fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
                 ),
               ),
               SizedBox(height: 12.h),
@@ -230,7 +236,7 @@ class BalanceScreen extends StatelessWidget {
   Color statusColor(String status) {
     switch (status) {
       case 'green':
-        return AppColors.green.withOpacity(0.2);
+        return Color(0xFF18C161);
       case 'red':
         return AppColors.red.withOpacity(0.2);
       default:

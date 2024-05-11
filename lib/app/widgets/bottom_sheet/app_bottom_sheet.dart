@@ -13,13 +13,13 @@ import 'package:jetu.driver/app/widgets/input/app_input_underline.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class AppBottomSheet extends StatelessWidget {
-  final PanelController panelController;
   final Widget? panel;
+  final double? maxHeight;
   final Widget Function(ScrollController)? panelBuilder;
 
   const AppBottomSheet({
     Key? key,
-    required this.panelController,
+    this.maxHeight,
     this.panel,
     this.panelBuilder,
   }) : super(key: key);
@@ -27,10 +27,13 @@ class AppBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SlidingUpPanel(
-      controller: panelController,
       backdropEnabled: false,
-      maxHeight: context.sizeScreen.height * 0.55,
-      minHeight: context.sizeScreen.height * 0.2,
+      maxHeight: (maxHeight == null)
+          ? context.sizeScreen.height * 0.4
+          : context.sizeScreen.height * maxHeight!,
+      minHeight: (maxHeight == null)
+          ? context.sizeScreen.height * 0.4
+          : context.sizeScreen.height * maxHeight!,
       borderRadius: const BorderRadius.vertical(
         top: Radius.circular(20),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jetu.driver/app/resourses/app_colors.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class RuleCheckbox extends StatelessWidget {
@@ -25,7 +26,7 @@ class RuleCheckbox extends StatelessWidget {
           children: [
             WidgetSpan(
               child: Text(
-                'Я прочитал и согласен с',
+                'Я прочитал(а) и принимаю условия',
                 style: TextStyle(
                   fontSize: 11.sp,
                   color: AppColors.black,
@@ -34,10 +35,10 @@ class RuleCheckbox extends StatelessWidget {
             ),
             WidgetSpan(
               child: GestureDetector(
-                onTap: () async => await launchUrl(
-                    Uri.parse('https://eduu.tilda.ws/terms_of_use')),
+                onTap: () async =>
+                    await launchUrl(Uri.parse('https://jetutaxi.kz/offer/')),
                 child: Text(
-                  'пользовательское соглашение ',
+                  'пользовательского соглашения и ',
                   style: TextStyle(
                     decoration: TextDecoration.underline,
                     fontSize: 11.sp,
@@ -47,18 +48,9 @@ class RuleCheckbox extends StatelessWidget {
               ),
             ),
             WidgetSpan(
-              child: Text(
-                'и даю даю согласие на',
-                style: TextStyle(
-                  fontSize: 11.sp,
-                  color: AppColors.black,
-                ),
-              ),
-            ),
-            WidgetSpan(
               child: GestureDetector(
                 onTap: () async => await launchUrl(
-                  Uri.parse('http://eduu.tilda.ws/privacy_policy'),
+                  Uri.parse('https://jetutaxi.kz/privacy-policy/'),
                 ),
                 child: Text(
                   'политику конфиденциальности',

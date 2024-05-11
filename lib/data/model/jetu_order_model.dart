@@ -3,22 +3,22 @@ import 'package:jetu.driver/data/model/jetu_user_model.dart';
 import 'package:latlong2/latlong.dart';
 
 class JetuOrderModel {
-  JetuOrderModel({
-    required this.id,
-    this.driver,
-    this.user,
-    this.status,
-    this.cost,
-    this.comment,
-    this.createdAt,
-    this.aPointLat,
-    this.aPointLong,
-    this.bPointLat,
-    this.bPointLong,
-    this.aPointAddress,
-    this.bPointAddress,
-    this.service,
-  });
+  JetuOrderModel(
+      {required this.id,
+      this.driver,
+      this.user,
+      this.status,
+      this.cost,
+      this.comment,
+      this.createdAt,
+      this.aPointLat,
+      this.aPointLong,
+      this.bPointLat,
+      this.bPointLong,
+      this.aPointAddress,
+      this.bPointAddress,
+      this.service,
+      this.currency});
 
   final String id;
   final JetuDriverModel? driver;
@@ -33,11 +33,12 @@ class JetuOrderModel {
   final double? bPointLong;
   final String? aPointAddress;
   final String? bPointAddress;
+  final String? currency;
   final ServiceModel? service;
 
-  LatLng aPoint() => LatLng(this.aPointLat ?? 0.0, this.aPointLong ?? 0.0);
+  LatLng aPoint() => LatLng(aPointLat ?? 0.0, aPointLong ?? 0.0);
 
-  LatLng bPoint() => LatLng(this.bPointLat ?? 0.0, this.bPointLong ?? 0.0);
+  LatLng bPoint() => LatLng(bPointLat ?? 0.0, bPointLong ?? 0.0);
 
   JetuOrderModel.fromJson(Map<String, dynamic> data)
       : id = data['id'],
@@ -50,6 +51,7 @@ class JetuOrderModel {
         status = data['status'],
         cost = data['cost'],
         comment = data['comment'],
+        currency = data['currency'],
         createdAt = DateTime.parse(data['created_at']).toLocal(),
         aPointLat = data['point_a_lat'] != null
             ? double.parse(data['point_a_lat'].toString())

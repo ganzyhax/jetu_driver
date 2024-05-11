@@ -1,20 +1,30 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jetu.driver/app/app_router/app_router.gr.dart';
 import 'package:jetu.driver/app/resourses/app_colors.dart';
+import 'package:jetu.driver/app/services/functions/phone_verif_func.dart';
 import 'package:jetu.driver/app/view/auth/bloc/auth_cubit.dart';
+import 'package:jetu.driver/app/view/auth/forget/forget_password_screen.dart';
+import 'package:jetu.driver/app/widgets/app_bar/app_bar_default.dart';
+import 'package:jetu.driver/app/widgets/app_toast.dart';
 import 'package:jetu.driver/app/widgets/button/app_button_v1.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:pinput/pinput.dart';
 
 class VerifyScreen extends StatefulWidget {
   final String phone;
-  final String verificationId;
-
-  const VerifyScreen({
-    Key? key,
-    required this.phone,
-    required this.verificationId,
-  }) : super(key: key);
+  final String pinCode;
+  final bool? isFrogetPassword;
+  const VerifyScreen(
+      {Key? key,
+      required this.phone,
+      required this.pinCode,
+      this.isFrogetPassword})
+      : super(key: key);
 
   @override
   State<VerifyScreen> createState() => _VerifyScreenState();
@@ -23,6 +33,46 @@ class VerifyScreen extends StatefulWidget {
 class _VerifyScreenState extends State<VerifyScreen> {
   final controller = TextEditingController();
   final focusNode = FocusNode();
+  static const maxTime = 3 * 60; // 3 минуты в секундах
+  int remainingTime = maxTime;
+  Timer? _timer;
+  bool isSms = false;
+
+  void startTimer() {
+    _timer?.cancel(); // Отменяем предыдущий таймер, если он был запущен
+    remainingTime = maxTime; // Сбрасываем время до начального значения
+    _timer = Timer.periodic(Duration(seconds: 1), (_) {
+      if (remainingTime > 0) {
+        setState(() {
+          remainingTime--;
+        });
+      } else {
+        setState(() {
+          isSms = true;
+        });
+
+        _timer?.cancel();
+      }
+    });
+  }
+
+  String formatTime(int totalSeconds) {
+    final minutes = totalSeconds ~/ 60;
+    final seconds = totalSeconds % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    startTimer();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
 
   @override
   void dispose() {
@@ -43,26 +93,16 @@ class _VerifyScreenState extends State<VerifyScreen> {
         color: AppColors.black,
       ),
       decoration: BoxDecoration(
-        color: AppColors.black.withOpacity(0.1),
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.transparent),
+        border: Border.all(color: AppColors.grey),
       ),
     );
 
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: AppColors.white,
-            leading: GestureDetector(
-              onTap: () => Navigator.of(context).pop(false),
-              child: const Icon(
-                Icons.arrow_back_ios_rounded,
-                color: AppColors.black,
-              ),
-            ),
-          ),
+          appBar: const AppBarBack(),
           body: Container(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             alignment: Alignment.center,
@@ -78,13 +118,28 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     focusNode: focusNode,
                     autofocus: true,
                     defaultPinTheme: defaultPinTheme,
-                    // onCompleted: (code) => context.read<AuthCubit>()
-                    //   ..verify(
-                    //     context: context,
-                    //     verificationId: widget.verificationId,
-                    //     code: code,
-                    //     phone: widget.phone,
-                    //   ),
+                    onCompleted: (code) async {
+                      if (widget.pinCode == code) {
+                        if (widget.isFrogetPassword == true) {
+                          // await context.router.pushAndPopUntil(
+                          //   const HomeScreen(),
+                          //   predicate: (Route<dynamic> route) => false,
+                          // );
+
+                          Navigator.of(context).push(
+                              new MaterialPageRoute<dynamic>(
+                                  builder: (BuildContext context) {
+                            return NewPasswordScreen(
+                              phone: widget.phone,
+                            );
+                          }));
+                        } else {
+                          Navigator.of(context).pop(true);
+                        }
+                      } else {
+                        AppToast.center('Не правильный пин код!');
+                      }
+                    },
                     focusedPinTheme: defaultPinTheme.copyWith(
                       height: 68.h,
                       width: 64.w,
@@ -97,19 +152,50 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 12.h),
-                GestureDetector(
-                  // onTap: () => context.read<AuthCubit>()
-                  //   ..verify(
-                  //     context: context,
-                  //     verificationId: widget.verificationId,
-                  //     code: controller.text,
-                  //     phone: widget.phone,
-                  //   ),
-                  child: AppButtonV1(
-                    isActive: true,
-                    isLoading: state.isLoading,
-                    text: 'Отправить',
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Не получили код? ',
+                        style: TextStyle(
+                          color: Color(0xFF121212),
+                          fontSize: 16,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          height: 1.44,
+                        ),
+                      ),
+                      TextSpan(
+                        text: (isSms == true)
+                            ? 'Отправить еще раз'
+                            : formatTime(remainingTime),
+                        style: TextStyle(
+                          color: Color(0xFF1D26FD),
+                          fontSize: 16,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          height: 1.44,
+                        ),
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 36.h),
+                AppButtonV1(
+                  isActive: true,
+                  isLoading: state.isLoading,
+                  text: 'Отправить',
+                ),
+                SizedBox(height: 24.h),
+                Center(
+                  child: Text(
+                    'SMS с кодом доставляется до 3 минут.',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      color: AppColors.black,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ],
@@ -133,11 +219,11 @@ class OtpHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Верификация',
+          'Забыли пароль?',
           style: TextStyle(
             fontSize: 24.sp,
-            fontWeight: FontWeight.w700,
             color: AppColors.black,
+            fontWeight: FontWeight.w500,
           ),
         ),
         const SizedBox(height: 24),
@@ -145,7 +231,8 @@ class OtpHeader extends StatelessWidget {
           'Введите код, отправленный на номер',
           style: TextStyle(
             fontSize: 16.sp,
-            color: AppColors.black.withOpacity(0.67),
+            color: AppColors.black,
+            fontWeight: FontWeight.w500,
           ),
         ),
         const SizedBox(height: 16),
@@ -153,7 +240,8 @@ class OtpHeader extends StatelessWidget {
           '+7 $address',
           style: TextStyle(
             fontSize: 16.sp,
-            color: AppColors.black.withOpacity(0.67),
+            color: AppColors.black,
+            fontWeight: FontWeight.w500,
           ),
         ),
         const SizedBox(height: 64)

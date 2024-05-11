@@ -11,7 +11,7 @@ class ApiFirebaseRemoteConfigGateway {
       ),
     );
 
-    await _remoteConfig.fetchAndActivate();
+    //await _remoteConfig.fetchAndActivate();
 
     RemoteConfigValue(null, ValueSource.valueStatic);
 

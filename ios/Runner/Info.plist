@@ -57,12 +57,27 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Нужно для верификации документов</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app needs access to location.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs access to location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Этому приложению требуется доступ к местоположению, чтобы иметь возможность находить ближайших заказов и определение ближайшего адреса.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Разрешите приложению записывать с помощью микрофона вашего телефона</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Доступ к вашей медиатеке необходим для загрузки выбранного изображения на сервер для документа/изображения профиля.</string>
+	<string>Нужно для верификации документов</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSMotionUsageDescription</key>
+	<string>Your custom message explaining why your app needs access to motion data.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

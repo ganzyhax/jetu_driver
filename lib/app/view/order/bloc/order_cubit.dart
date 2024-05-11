@@ -1,9 +1,14 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphql/client.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jetu.driver/app/const/app_shared_keys.dart';
+import 'package:jetu.driver/app/services/jetu_drivers/grapql_mutation.dart';
+import 'package:jetu.driver/app/services/jetu_drivers/grapql_subs.dart';
 import 'package:jetu.driver/app/services/jetu_order/grapql_mutation.dart';
+import 'package:jetu.driver/app/view/jetu_map/bloc/yandex_map_bloc.dart';
 import 'package:jetu.driver/app/view/order/bloc/order_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,6 +44,20 @@ class OrderCubit extends Cubit<OrderState> {
     ));
   }
 
+  void setUserStatus(bool value) async {
+    _prefs = await SharedPreferences.getInstance();
+    String driverId = await _prefs.getString(AppSharedKeys.userId) ?? '';
+    print('Driver id here' + driverId);
+    final MutationOptions options = MutationOptions(
+      document: gql(JetuDriverMutation.updateUserFreeStatus()),
+      fetchPolicy: FetchPolicy.networkOnly,
+      variables: {"userId": driverId, "value": value},
+    );
+    var data = await client.mutate(options);
+    print(data);
+    emit(state.copyWith(isOnline: value));
+  }
+
   void changeStatusOrder(
     String orderId, {
     required String status,
@@ -59,19 +78,32 @@ class OrderCubit extends Cubit<OrderState> {
 
     await client.mutate(options);
     if (status == 'finished' || status == 'canceled') {
-      print('showOrders when finished/canceled');
       showOrders = true;
     }
 
-    if (driverId != null) {
-      final query = {
-        "driver_id": driverId,
-        "payment": payment,
-      };
-      await Dio().get(
-        'https://jetu-backend.vercel.app/api/v1/finish_order',
-        queryParameters: query,
+    if (payment != '0' && payment != null && status == 'finished') {
+      showOrders = true;
+      final QueryOptions options = QueryOptions(
+        document: gql(JetuDriverSubscription.getDriverAmountQuery()),
+        fetchPolicy: FetchPolicy.networkOnly,
+        variables: {
+          "driverId": driverId,
+        },
       );
+      QueryResult data = await client.query(options);
+      double orderCash = double.parse(payment.toString());
+      double commission = orderCash * 0.06;
+      double userBalance =
+          double.parse(data.data!['jetu_drivers_by_pk']['amount'].toString());
+      double updateBalance = userBalance - commission;
+
+      final MutationOptions options2 = MutationOptions(
+        document: gql(JetuDriverMutation.addDriverBalance()),
+        fetchPolicy: FetchPolicy.networkOnly,
+        variables: {"driverId": driverId, "amount": updateBalance},
+      );
+
+      await client.mutate(options2);
     }
     emit(state.copyWith(
       isLoading: false,

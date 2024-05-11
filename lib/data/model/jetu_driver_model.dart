@@ -13,6 +13,7 @@ class JetuDriverModel {
     this.lat,
     this.long,
     this.isVerified,
+    this.token,
     this.amount = 0,
   });
 
@@ -21,6 +22,7 @@ class JetuDriverModel {
   final String? surname;
   final String? status;
   final String? phone;
+  final String? token;
   final double? rating;
   final String? avatarUrl;
   final String? carModel;
@@ -37,6 +39,7 @@ class JetuDriverModel {
         surname = name.isNotEmpty ? data[name]['surname'] : data['surname'],
         status = name.isNotEmpty ? data[name]['status'] : data['status'],
         phone = name.isNotEmpty ? data[name]['phone'] : data['phone'],
+        token = name.isNotEmpty ? data[name]['token'] : data['token'],
         rating = name.isNotEmpty
             ? data[name]['rating'] != null
                 ? double.parse(data[name]['rating'].toString())
@@ -58,7 +61,7 @@ class JetuDriverModel {
             name.isNotEmpty ? data[name]['is_verified'] : data['is_verified'],
         amount = name.isNotEmpty
             ? double.parse('${data[name]['amount'] ?? 0.0}')
-            : double.parse('${data['amount'] ?? 0.0 }');
+            : double.parse('${data['amount'] ?? 0.0}');
 }
 
 class JetuDriverList {

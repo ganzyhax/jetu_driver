@@ -6,13 +6,13 @@ class AppConst {
   static const playMarketId = 'kz.jetutaxi.driver';
 
   static const hasuraHttpPoint =
-      'https://qrtfksgopyjyhsorqtpq.nhost.run/v1/graphql';
+      'https://elmrnhqzybgkyhthobqy.hasura.eu-central-1.nhost.run/v1/graphql';
 
   static const hasuraWebSocketPoint =
-      'wss://qrtfksgopyjyhsorqtpq.nhost.run/v1/graphql';
+      'wss://elmrnhqzybgkyhthobqy.hasura.eu-central-1.nhost.run/v1/graphql';
 
   static const hasuraKey = {
-    'x-hasura-admin-secret': '06d6dc747237967080c19d6b830f89d7',
+    'x-hasura-admin-secret': "DXU^lp#*mUp_3yJ6VsaWS*(0pmq)kvY'",
   };
 
   static const String loginTermsAndConditionsUrl =
@@ -24,25 +24,45 @@ class AppConst {
 
   static const appZCloudKey = 'io6OQaSlxGPMazCkdfaVISLUnVp2M2q1';
   static const String mapBoxAccessToken =
-      "pk.eyJ1IjoiemhhaWdnIiwiYSI6ImNsOGE5dWN5MDBlczQzb250MW5tNW45bWkifQ.N0u0B0-ieiNn4nx9f1fU2Q";
+      "pk.eyJ1IjoibnVybGFuMTk5NCIsImEiOiJjbGljeHpicjgwczhrM2VtdXJ5aGppNDZxIn0.Q9DPIpyqagob9Y_pMTI8Bg";
 
   static const whatsAppSupport = 'whatsapp://send?phone=77058895658';
-  static const instagramAppSupport = 'https://instagram.com/hacker.atyrau';
+  static const instagramAppSupport = 'https://jetutaxi.kz/';
+  static const webSite = 'https://www.jetutaxi.kz/';
+
+  // static TileLayerOptions getMapTile() {
+  //   // if (kReleaseMode) {
+  //   //   return TileLayerOptions(
+  //   //     urlTemplate:
+  //   //         "https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=$mapBoxAccessToken",
+  //   //     additionalOptions: {"access_token": mapBoxAccessToken,},
+  //   //     maxNativeZoom: 18,
+  //   //   );
+  //   // }
+  //   return TileLayerOptions(
+  //     urlTemplate: "https://mt0.google.com/vt/lyrs=m@221097413&x={x}&y={y}&z={z}",
+  //     subdomains: ['a', 'b', 'c'],
+  //     maxNativeZoom: 18,
+  //     retinaMode: true,
+  //   );
+  // }
 
   static TileLayerOptions getMapTile() {
     // if (kReleaseMode) {
-    //   return TileLayerOptions(
-    //     urlTemplate:
-    //         "https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=$mapBoxAccessToken",
-    //     additionalOptions: {"access_token": mapBoxAccessToken,},
-    //     maxNativeZoom: 18,
-    //   );
-    // }
     return TileLayerOptions(
-      urlTemplate: "https://mt0.google.com/vt/lyrs=m@221097413&x={x}&y={y}&z={z}",
-      subdomains: ['a', 'b', 'c'],
+      //mapbox://styles/nurlan1994/clikjmqaa00fj01pg7xld8odc
+      urlTemplate:
+          "https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=$mapBoxAccessToken",
+      //"https://api.mapbox.com/styles/v1/nurlan1994/cliggoted007d01pfd7ruge4q/tiles/256/{z}/{x}/{y}@2x?access_token=$mapBoxAccessToken",
+      additionalOptions: {"access_token": mapBoxAccessToken},
       maxNativeZoom: 18,
-      retinaMode: true,
     );
+    //}
+    // return TileLayerOptions(
+    //   urlTemplate:
+    //   "https://mt0.google.com/vt/lyrs=m@221097413&x={x}&y={y}&z={z}",
+    //   subdomains: ['a', 'b', 'c'],
+    //   maxNativeZoom: 18,
+    // );
   }
 }

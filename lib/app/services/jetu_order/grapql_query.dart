@@ -1,11 +1,13 @@
 class JetuOrdersQuery {
   static String fetchOrders() {
-    return ("""subscription (\$xmax: float8,\$xmin: float8,\$ymax: float8,\$ymin: float8){
-  orders_by_bound(args: {xxmax: \$xmax, xxmin:\$xmin, yymax: \$ymax,yymin: \$ymin}){
+    return ("""subscription (\$lat: float8,\$lon: float8){
+  order_by_location(args: {lat: \$lat, lon: \$lon}){
     id,
     jetu_user{
       id,
-      name
+      name,
+      token,
+      avatarUrl
     },
     cost,
     comment,
@@ -13,6 +15,7 @@ class JetuOrdersQuery {
     status,
     point_a_lat,
     point_a_long,
+    currency,
     point_b_lat,
     point_b_long,
     point_a_address,

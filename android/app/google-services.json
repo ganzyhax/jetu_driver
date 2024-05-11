@@ -1,95 +1,45 @@
 {
   "project_info": {
-    "project_number": "258860641481",
-    "project_id": "jetu-taxi",
-    "storage_bucket": "jetu-taxi.appspot.com"
+    "project_number": "141394785577",
+    "project_id": "jetu-2dc7b",
+    "storage_bucket": "jetu-2dc7b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:258860641481:android:ba9b0c0a6ccfb7df587118",
+        "mobilesdk_app_id": "1:141394785577:android:e475d1bbef229303c5b338",
         "android_client_info": {
           "package_name": "kz.jetutaxi"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "258860641481-jafgf7oo24edvfhed8kpq8cmg3868fei.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "kz.jetutaxi",
-            "certificate_hash": "e0a0ab63cf3a8bca1bfe6c00e5a32ea9650bf401"
-          }
-        },
-        {
-          "client_id": "258860641481-as4c5l2fp17gnifuname85p771krbusd.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCvkmpT0AZn1gMLUI8OwgOOdQiMvEsiLkk"
+          "current_key": "AIzaSyBp2Q6cbzn5lGpHyYPkHg2yRmYzsyeNkMA"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "258860641481-as4c5l2fp17gnifuname85p771krbusd.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "258860641481-lm74r4v650klm6sqb121vhrk105i0b6a.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "kz.jetutaxi"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:258860641481:android:943ba4259f264b5f587118",
+        "mobilesdk_app_id": "1:141394785577:android:e421f1a692ae9c5ac5b338",
         "android_client_info": {
           "package_name": "kz.jetutaxi.driver"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "258860641481-i6g691o7j8otnotag1ckkdeghlgs6vql.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "kz.jetutaxi.driver",
-            "certificate_hash": "e0a0ab63cf3a8bca1bfe6c00e5a32ea9650bf401"
-          }
-        },
-        {
-          "client_id": "258860641481-as4c5l2fp17gnifuname85p771krbusd.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCvkmpT0AZn1gMLUI8OwgOOdQiMvEsiLkk"
+          "current_key": "AIzaSyBp2Q6cbzn5lGpHyYPkHg2yRmYzsyeNkMA"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "258860641481-as4c5l2fp17gnifuname85p771krbusd.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "258860641481-lm74r4v650klm6sqb121vhrk105i0b6a.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "kz.jetutaxi"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
